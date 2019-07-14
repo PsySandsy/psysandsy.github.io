@@ -18,12 +18,50 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 ```
 
 
-<!-- introduce yourself here -->
+# Individual Factors Determining Performance
 
-# Introduction
+```{r indiv-table}
+indiv_table <- data.frame(FACTOR = c("Mindset", "Optimal Mindsets", "Effective Coping Strategies", "Goal Setting", "Relaxation and Meditation", "Imagery and Self-Talk"), DETAIL = c("A growth mindset outperforms a fixed mindset. Folks with this mindset focus on learning, their invested effort will lead to success, and they embrace their mistakes.", "Optimal meaning that you achieve Flow. To increase the likelihood of experiencing this, you motivate yourself to perform well, achieve an optimal physiological arousal level prior to performance, and have a strong focus", "Handle pressure of situation by reinterpreting it.", "Set SMART goals to guide performance and change behavior if performance is dipping.", "Enhances well-being and handles stress. You can also use this as a coping strategy.", "Pre-imaging situations is conducive to performance in those situations."))
 
-<!-- include an image here, if you have a GitHub account use your profile pic! -->
-
-```{r photo, echo = FALSE}
-knitr::include_graphics("https://github.com/USERNAME.png") # update USERNAME here
+knitr::kable(indiv_table, format = "html")
 ```
+
+--- 
+
+# Psychological skills to facilitate performance
+
+Psychological skills training are cognitive skills designed to enhance performance outcomes, increase enjoyment, and enhance satisfaction. The main ones to focus on are:
+
+--
+
+ 1. Goal-setting
+ 2. Relaxation and Meditation
+ 3. Imagery
+ 4. Self-talk
+ 5. Pre-performance rituals. 
+
+---
+
+# Goal-setting and relaxation & meditation
+
+**Goal-setting:** setting goals has consistently lead to enhanced performance. Influences behaviour and motivation. Should be SMART (specific, measurable, action-related, realistic, timetabled). Most important aspect is evaluation and re-evaluation, allows monitoring and behavioural change (if required)
+
+--
+
+**Relaxation and meditation:** two types, ‘muscle to mind’ (involving breathing exercises and muscular relaxation approach) and ‘mind to muscle’ (meditation and autogenic training). Both aim to decrease oxygen consumption, reduce heart rate & respiration, and provide controlled focus of attention
+
+--
+
+**Mindfulness** - in particular - can increase well-being, and improve functioning in healthy people, as well as lessen physical and psychological disorders 
+
+---
+
+# Imagery and Self-talk
+
+Picturing or imagining specific scenarios is effective for skill learning, prep for performance, and rehabilitation. Individual can deploy several senses and experience the situation as if it were real. Mental imagery improves with practice. Most successful performers use frequent imagery. 
+
+--
+
+Self-talk are cognitive techniques that use specific verbal cues to activate appropriate responses (mostly used in sports settings for learners to talk through specific motor movements, and then to motivate themselves through challenging tasks)
+
+
