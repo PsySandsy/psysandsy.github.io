@@ -1,0 +1,29 @@
+---
+title: "The Psychology of Performance"
+subtitle: "Advice on enhancing and maintaining performance"
+author: "David Sands"
+date: "`r Sys.Date()`" 
+output: 
+  xaringan::moon_reader:
+    nature:
+      highlightStyle: github 
+      highlightLines: true
+---
+
+<!-- Example of a comment -->
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+```
+
+
+<!-- introduce yourself here -->
+
+# Introduction
+
+<!-- include an image here, if you have a GitHub account use your profile pic! -->
+
+```{r photo, echo = FALSE}
+knitr::include_graphics("https://github.com/USERNAME.png") # update USERNAME here
+```
