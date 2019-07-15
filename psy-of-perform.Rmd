@@ -17,16 +17,31 @@ options(htmltools.dir.version = FALSE)
 knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 ```
 
+# Introduction
 
-# Individual Factors Determining Performance
+The book [The Psychology of Performance](https://www.routledge.com/The-Psychology-of-Performance-1st-Edition/Cotterill/p/book/9781138219205) by Stewart T Cotterill provides a primer on research into performance. 
+
+--
+
+By extension, it also details tips and techniques identified via this research that leads to enhanced performance. 
+
+--
+
+It is these tips that I’m going to place here, so that we can try to consistently deliver high performance in present and future environments
+
+---
+
+```{r include=FALSE}
+indiv_table <- data.frame(FACTOR = c("Mindset", "Optimal Mindsets", "Effective Coping Strategies", "Goal Setting", "Relaxation and Meditation", "Imagery and Self-Talk"), DETAIL = c("A growth mindset outperforms a fixed mindset. Folks with this mindset focus on learning, their invested effort will lead to success, and they embrace their mistakes.", "Optimal meaning that you achieve Flow. To increase the likelihood of experiencing this, you motivate yourself to perform well, achieve an optimal physiological arousal level prior to performance, and have a strong focus", "Handle pressure of situation by reinterpreting it.", "Set SMART goals to guide performance and change behavior if performance is dipping.", "Enhances well-being and handles stress. You can also use this as a coping strategy.", "Pre-imaging situations is conducive to performance in those situations."))
+```
 
 ```{r indiv-table}
-indiv_table <- data.frame(FACTOR = c("Mindset", "Optimal Mindsets", "Effective Coping Strategies", "Goal Setting", "Relaxation and Meditation", "Imagery and Self-Talk"), DETAIL = c("A growth mindset outperforms a fixed mindset. Folks with this mindset focus on learning, their invested effort will lead to success, and they embrace their mistakes.", "Optimal meaning that you achieve Flow. To increase the likelihood of experiencing this, you motivate yourself to perform well, achieve an optimal physiological arousal level prior to performance, and have a strong focus", "Handle pressure of situation by reinterpreting it.", "Set SMART goals to guide performance and change behavior if performance is dipping.", "Enhances well-being and handles stress. You can also use this as a coping strategy.", "Pre-imaging situations is conducive to performance in those situations."))
-
 knitr::kable(indiv_table, format = "html")
 ```
 
---- 
+---
+name: psy-skills
+class: left, top
 
 # Psychological skills to facilitate performance
 
@@ -35,18 +50,29 @@ Psychological skills training are cognitive skills designed to enhance performan
 --
 
  1. Goal-setting
+
  2. Relaxation and Meditation
+
  3. Imagery
+
  4. Self-talk
+
  5. Pre-performance rituals. 
 
 ---
+name: goal
 
-# Goal-setting and relaxation & meditation
+# Goal setting
 
 **Goal-setting:** setting goals has consistently lead to enhanced performance. Influences behaviour and motivation. Should be SMART (specific, measurable, action-related, realistic, timetabled). Most important aspect is evaluation and re-evaluation, allows monitoring and behavioural change (if required)
 
---
+---
+name: relax_pic
+class: left
+background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Mournes_wiki.jpg/1200px-Mournes_wiki.jpg)
+background-size: cover
+
+# Relaxation & meditation
 
 **Relaxation and meditation:** two types, ‘muscle to mind’ (involving breathing exercises and muscular relaxation approach) and ‘mind to muscle’ (meditation and autogenic training). Both aim to decrease oxygen consumption, reduce heart rate & respiration, and provide controlled focus of attention
 
@@ -65,3 +91,91 @@ Picturing or imagining specific scenarios is effective for skill learning, prep 
 Self-talk are cognitive techniques that use specific verbal cues to activate appropriate responses (mostly used in sports settings for learners to talk through specific motor movements, and then to motivate themselves through challenging tasks)
 
 
+---
+
+# Team Factors Determining Performance
+
+```{r include=FALSE}
+team_table <- data.frame(FACTOR = c("Role Clarity", "Leadership", "Cohesion", "Team emotion"), DETAIL = c("Denotes team members knowing what their roles are. Also requires role acceptance and role performance. Members also need to understand roles of other members, and this understanding has to be the same between all members.", "Influencing individuals and groups toward specific goals. Good leaders are good planners, organisers, and decision makers, and are able to empower others to action.", "Togetherness of the team. Can be either task (united in pursuit of goals), or social (united in their social interactions).", "Team members are aware of emotional climate in the team, and may modify their moods to that climate."))
+```
+
+```{r team-table}
+knitr::kable(team_table, format = "html")
+```
+
+---
+
+# Factors Limiting Performance 
+
+ 1. Lack of quality and/or quantity of sleep
+ 2. Tiredness
+ 3. Performance usually decreases after a midday meal, ‘post-lunch dip’
+ 4. High carbohydrate breakfast can improve morning performance
+ 5. Perceived stress - this will lead to ‘deautomisation’ of learnt skills, over-thinking, and ‘paralysis by analysis’.
+ 
+ 
+---
+
+# Coping
+
+Coping relates to handling stress of situation, setbacks, and stress experienced whilst under pressure. 
+
+--
+
+Most important strategy to cope is to reinterpret the situation to reduce or eliminate the stress evoked from it. Your concept of pressure is self-determined, usually from expectation of others. If you change these expectations, you can reduce pressure you feel, allowing freedom for performance to flourish. 
+
+---
+
+# Coping strategies and resources
+
+Distinction between problem-focused and emotion-focused coping. 
+
+.pull-left[
+Problem-focused look at changing the problems causing distress, usually by problem-solving and increased effort. 
+]
+
+.pull-right[
+Emotion-focused regulate your emotional response to problems causing distress
+]
+
+--
+
+Coping resources include good quality sleep, fitness levels, nutrition and hydration, time management, strong social support. Social support is the most important, as it’s been linked to enhanced well-being.  
+
+---
+name: mindset
+
+# Advice on your mindset
+
+Developing a growth mindset is better in the long run
+
+--
+
+Effort is key to future success. The more you put in, the more you _generally_ get out. 
+
+--
+
+If you know your mindset when you perform well, you can take steps to achieve that mindset more often. 
+
+--
+
+Stay mentally sharp by having a healthy diet and good hydration. Eat your fruit and vegetables; keep red meat fast food, and alcohol to a minimum; drink lots of tea and water etc. 
+
+--
+
+Psychological skills help performance (goal-setting, imagery, relaxation etc). The more you practice them, the better they become
+
+---
+
+# Practical psychological strategies to enhance performance
+
+ 1. Become an optimist, rather than a pessimist
+ 2. Practice and performance are positively related - more you put in, more you’ll get out
+ 3. Replicate what you do when things go well
+ 4. Treat good quality sleep as vital.
+ 5. Set SMART goals
+ 6. Develop relaxation and mindfulness skills
+ 7. Make self-talk positive and supportive
+ 8. Develop a routine for pre-performance - it gives you something to think about and blocks any unwanted thoughts.
+ 9. In teams, make sure everyone knows what they’re doing, and that everyone has the same understanding
+ 10. Be aware of how your emotions impact upon performance (individual and team) and understand how to create your preferred response (excited rather than nervous)
