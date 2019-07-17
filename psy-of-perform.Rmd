@@ -10,6 +10,7 @@ output:
       highlightLines: true
 ---
 
+
 <!-- Example of a comment -->
 
 ```{r setup, include=FALSE}
@@ -32,10 +33,10 @@ It is these tips that I’m going to place here, so that we can try to consisten
 ---
 
 ```{r include=FALSE}
-indiv_table <- data.frame(FACTOR = c("Mindset", "Optimal Mindsets", "Effective Coping Strategies", "Goal Setting", "Relaxation and Meditation", "Imagery and Self-Talk"), DETAIL = c("A growth mindset outperforms a fixed mindset. Folks with this mindset focus on learning, their invested effort will lead to success, and they embrace their mistakes.", "Optimal meaning that you achieve Flow. To increase the likelihood of experiencing this, you motivate yourself to perform well, achieve an optimal physiological arousal level prior to performance, and have a strong focus", "Handle pressure of situation by reinterpreting it.", "Set SMART goals to guide performance and change behavior if performance is dipping.", "Enhances well-being and handles stress. You can also use this as a coping strategy.", "Pre-imaging situations is conducive to performance in those situations."))
+indiv_table <- data.frame(FACTOR = c("Mindset", "Optimal Mindsets", "Effective Coping Strategies", "Goal Setting", "Relaxation and Meditation", "Imagery and Self-Talk"), DETAIL = c("A growth mindset outperforms a fixed mindset. Folks with this mindset focus on learning, their invested effort will lead to success, and they embrace their mistakes. Details of this minset shall be explored later.", "Optimal mindset is one in which you achieve FLOW. To increase the likelihood of experiencing this, you motivate yourself to perform well, achieve an optimal physiological arousal level prior to performance, and have a strong focus", "Handle pressure of situation by reinterpreting it. More detail is given later.", "Set SMART goals to guide performance and change behavior if performance is dipping.", "Enhances well-being and handles stress. You can also use this as a coping strategy.", "Pre-imaging situations is conducive to performance in those situations."))
 ```
 
-```{r indiv-table}
+```{r indiv-table, echo=FALSE}
 knitr::kable(indiv_table, format = "html")
 ```
 
@@ -45,26 +46,30 @@ class: left, top
 
 # Psychological skills to facilitate performance
 
-[Psychological skills](https://www.bodybuilding.com/fun/psychological-skills-training.htm) training are cognitive skills designed to enhance performance outcomes, increase enjoyment, and enhance satisfaction. The main ones to focus on are:
+Many of these individual factors are called [Psychological skills](https://www.bodybuilding.com/fun/psychological-skills-training.htm). These are cognitive skills designed to enhance performance outcomes, increase enjoyment, and enhance satisfaction. The main ones to develop are:
 
 --
 
  1. Goal-setting
-
  2. Relaxation and Meditation
-
  3. Imagery
-
  4. Self-talk
+ 5. Pre-performance rituals
 
- 5. Pre-performance rituals. 
+--
+
+Not too sure how to develop them? Have no fear, I'll show you how in the next few slides...
 
 ---
 name: goal
 
 # Goal setting
 
-**Goal-setting:** setting goals has consistently lead to enhanced performance. Influences behaviour and motivation. Should be SMART (specific, measurable, action-related, realistic, timetabled). Most important aspect is evaluation and re-evaluation, allows monitoring and behavioural change (if required)
+**Goal-setting:** setting goals has consistently lead to enhanced performance. Influences behaviour and motivation. Should be _SMART_ (specific, measurable, action-related, realistic, timetabled). Most important aspect is evaluation and re-evaluation, allows monitoring and behavioural change (if required).
+
+--
+
+Within work, our objectives are advised to be written in the SMART format. If you want to improve performance within work, create SMART goals with your line manager.
 
 ---
 name: relax_pic
@@ -74,11 +79,15 @@ background-size: cover
 
 # Relaxation & meditation
 
-**Relaxation and meditation:** two types, ‘muscle to mind’ (involving breathing exercises and muscular relaxation approach) and ‘mind to muscle’ (meditation and autogenic training). Both aim to decrease oxygen consumption, reduce heart rate & respiration, and provide controlled focus of attention
+.pull-left[
+**Relaxation and meditation:** two types, ‘muscle to mind’ (involving breathing exercises and muscular relaxation approach) and ‘mind to muscle’ (meditation and autogenic training). Both aim to decrease oxygen consumption, reduce heart rate & respiration, and provide controlled focus of attention. Can be devloped in meditation groups, or by using meditation apps like [Calm](https://www.calm.com/) or [Headspace](https://www.headspace.com/).
+]
 
 --
 
-**Mindfulness** - in particular - can increase well-being, and improve functioning in healthy people, as well as lessen physical and psychological disorders 
+.pull-right[
+**Mindfulness** - in particular - can increase well-being and improve functioning in healthy people, and [is effective for reducing anxiety, depression, and stress.](https://www.sciencedirect.com/science/article/pii/S0272735813000731) 
+]
 
 ---
 
@@ -88,9 +97,11 @@ Picturing or imagining specific scenarios is effective for skill learning, prep 
 
 --
 
-Self-talk are cognitive techniques that use specific verbal cues to activate appropriate responses (mostly used in sports settings for learners to talk through specific motor movements, and then to motivate themselves through challenging tasks)
+Self-talk are cognitive techniques that use specific verbal cues to activate appropriate responses (mostly used in sports settings for learners to talk through specific motor movements, and then to motivate themselves through challenging tasks).
 
+--
 
+With individual factors covered, let's turn to factors that determine performance when you work as part of a team...
 ---
 
 # Team Factors Determining Performance
@@ -99,7 +110,7 @@ Self-talk are cognitive techniques that use specific verbal cues to activate app
 team_table <- data.frame(FACTOR = c("Role Clarity", "Leadership", "Cohesion", "Team emotion"), DETAIL = c("Denotes team members knowing what their roles are. Also requires role acceptance and role performance. Members also need to understand roles of other members, and this understanding has to be the same between all members.", "Influencing individuals and groups toward specific goals. Good leaders are good planners, organisers, and decision makers, and are able to empower others to action.", "Togetherness of the team. Can be either task (united in pursuit of goals), or social (united in their social interactions).", "Team members are aware of emotional climate in the team, and may modify their moods to that climate."))
 ```
 
-```{r team-table}
+```{r team-table, echo = FALSE}
 knitr::kable(team_table, format = "html")
 ```
 
@@ -110,8 +121,7 @@ knitr::kable(team_table, format = "html")
  1. Lack of quality and/or quantity of sleep
  2. Tiredness
  3. Performance usually decreases after a midday meal, ‘post-lunch dip’
- 4. High carbohydrate breakfast can improve morning performance
- 5. Perceived stress - this will lead to ‘deautomisation’ of learnt skills, over-thinking, and ‘paralysis by analysis’.
+ 4. Perceived stress - this will lead to ‘deautomisation’ of learnt skills, over-thinking, and ‘paralysis by analysis’.
  
  
 ---
@@ -124,11 +134,21 @@ Coping relates to handling stress of situation, setbacks, and stress experienced
 
 Most important strategy to cope is to reinterpret the situation to reduce or eliminate the stress evoked from it. Your concept of pressure is self-determined, usually from expectation of others. If you change these expectations, you can reduce pressure you feel, allowing freedom for performance to flourish. 
 
+--
+
+For example, if you sit an exam, the act of writing answers to questions on the paper is not stressful. Instead, the pressure _you_ bring to that exam is stressful. Your parents _expecting you_ to get high marks is stressful. Worrying about _your friends_ getting higher marks is stressful. Worrying about not getting onto a course _you want_ is stressful. 
+
+--
+
+If you identify these factors as the source of stress, you can reassess them, eliminate them, and free up more thinking time to perform. 
+
 ---
 
-# Coping strategies and resources
+# Coping strategies
 
-Distinction between problem-focused and emotion-focused coping. 
+Aside from reinterpreting your situation, there is a multitude of other strategies and resources to cope with a stressful situation. 
+
+Specifically, you can deploy problem-focused or emotion-focused coping. 
 
 .pull-left[
 Problem-focused look at changing the problems causing distress, usually by problem-solving and increased effort. 
@@ -138,9 +158,36 @@ Problem-focused look at changing the problems causing distress, usually by probl
 Emotion-focused regulate your emotional response to problems causing distress
 ]
 
+---
+name: coping-resources
+
+# Coping resources
+
+Plus, despite which coping stratgy you employ, you can use a lot of resources. 
+
 --
 
-Coping resources include good quality sleep, fitness levels, nutrition and hydration, time management, strong social support. Social support is the most important, as it’s been linked to enhanced well-being.  
+Good quality sleep
+
+--
+
+High - or improving - fitness levels 
+
+--
+
+Healthy nutrition and hydration
+
+--
+
+Time management
+
+--
+
+Strong social support. Social support is the most important, as it’s been linked to enhanced well-being. 
+
+--
+
+Plus, a high carbohydrate breakfast can improve morning performance. If you feel performance is needed before lunch, grab a McMuffian. 
 
 ---
 name: mindset
