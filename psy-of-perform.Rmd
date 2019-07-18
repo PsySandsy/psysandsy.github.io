@@ -20,23 +20,25 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 
 # Introduction
 
-The book [The Psychology of Performance](https://www.routledge.com/The-Psychology-of-Performance-1st-Edition/Cotterill/p/book/9781138219205) by Stewart T Cotterill provides a primer on research into performance. 
+The book [The Psychology of Performance](https://www.routledge.com/The-Psychology-of-Performance-1st-Edition/Cotterill/p/book/9781138219205) by Stewart T Cotterill explores
+
+> ...the way the mind works (or needs to work) to be able to perform at a high level when it counts time after time. 
 
 --
 
-By extension, it also details tips and techniques identified via this research that leads to enhanced performance. 
+Chapter 5 - `Factors determinging psychological performance` - details tips and techniques identified via psychological research that leads to enhanced performance. But also uncovers factors that diminish performance.
 
 --
 
-It is these tips that I’m going to place here, so that we can try to consistently deliver high performance in present and future environments
+I was so enthralled by this chapter, I decided to summarise it here. With the factors that determine performance documentated, we can use this knowledge to consistently deliver high performance in present and future environments. To start hitting the mark like Jim Bowen, let's first uncover the factors residing in you - as an individual - which determine performance...
 
 ---
 
-```{r include=FALSE}
-indiv_table <- data.frame(FACTOR = c("Mindset", "Optimal Mindsets", "Effective Coping Strategies", "Goal Setting", "Relaxation and Meditation", "Imagery and Self-Talk"), DETAIL = c("A growth mindset outperforms a fixed mindset. Folks with this mindset focus on learning, their invested effort will lead to success, and they embrace their mistakes. Details of this minset shall be explored later.", "Optimal mindset is one in which you achieve FLOW. To increase the likelihood of experiencing this, you motivate yourself to perform well, achieve an optimal physiological arousal level prior to performance, and have a strong focus", "Handle pressure of situation by reinterpreting it. More detail is given later.", "Set SMART goals to guide performance and change behavior if performance is dipping.", "Enhances well-being and handles stress. You can also use this as a coping strategy.", "Pre-imaging situations is conducive to performance in those situations."))
-```
+# Individual Factors Determining Performance 
 
 ```{r indiv-table, echo=FALSE}
+indiv_table <- data.frame(FACTOR = c("Mindset", "Optimal Mindsets", "Effective Coping Strategies", "Goal Setting", "Relaxation and Meditation", "Imagery and Self-Talk"), DETAIL = c("A growth mindset outperforms a fixed mindset. Folks with this mindset focus on learning, their invested effort will lead to success, and they embrace their mistakes. Details of this minset shall be explored later.", "Optimal mindset is one in which you achieve FLOW. To increase the likelihood of experiencing this, you motivate yourself to perform well, achieve an optimal physiological arousal level prior to performance, and have a strong focus", "Handle pressure of situation by reinterpreting it. More detail is given later.", "Set SMART goals to guide performance and change behavior if performance is dipping.", "Enhances well-being and handles stress. You can also use this as a coping strategy.", "Pre-imaging situations is conducive to performance in those situations."))
+
 knitr::kable(indiv_table, format = "html")
 ```
 
@@ -71,6 +73,8 @@ name: goal
 
 Within work, our objectives are advised to be written in the SMART format. If you want to improve performance within work, create SMART goals with your line manager.
 
+SMART goals - being specific and realistic - allow you to focus on things you can improve. Are you training for a race? Add 5 minutes onto your next run. Learning a new language? Learn a new word a day. Have you got a band performance coming up? Busk once a week to get used to crowds etc. 
+
 ---
 name: relax_pic
 class: left
@@ -78,6 +82,10 @@ background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/
 background-size: cover
 
 # Relaxation & meditation
+
+We spend a third of a day - every day - sleeping. I.E. **resting**. The importance of rest is hard-coded into our body clock. 
+
+If our bodies need consistent rest, so do we when we're performing. Thankfully, both relexation and meditation provide such rest:
 
 .pull-left[
 **Relaxation and meditation:** two types, ‘muscle to mind’ (involving breathing exercises and muscular relaxation approach) and ‘mind to muscle’ (meditation and autogenic training). Both aim to decrease oxygen consumption, reduce heart rate & respiration, and provide controlled focus of attention. Can be devloped in meditation groups, or by using meditation apps like [Calm](https://www.calm.com/) or [Headspace](https://www.headspace.com/).
@@ -93,11 +101,11 @@ background-size: cover
 
 # Imagery and Self-talk
 
-Picturing or imagining specific scenarios is effective for skill learning, prep for performance, and rehabilitation. Individual can deploy several senses and experience the situation as if it were real. Mental imagery improves with practice. Most successful performers use frequent imagery. 
+Picturing or imagining specific scenarios is effective for skill learning, preparation for performance, and rehabilitation. You can deploy several senses and experience the situation as if it were real. Mental imagery improves with practice. Most successful performers use frequent imagery. 
 
 --
 
-Self-talk are cognitive techniques that use specific verbal cues to activate appropriate responses (mostly used in sports settings for learners to talk through specific motor movements, and then to motivate themselves through challenging tasks).
+Self-talk are cognitive techniques that use specific verbal cues to activate appropriate responses (mostly used in sports settings for learners to talk through specific motor movements, and then to motivate themselves through challenging tasks). As this is your inner voice, you have the ability to change it from disparaging ("How could I be so stupid") to encouraging ("Huh... I didn't know that. I'll remember that next time.")
 
 --
 
@@ -106,11 +114,9 @@ With individual factors covered, let's turn to factors that determine performanc
 
 # Team Factors Determining Performance
 
-```{r include=FALSE}
+```{r {r team-table, echo = FALSE}
 team_table <- data.frame(FACTOR = c("Role Clarity", "Leadership", "Cohesion", "Team emotion"), DETAIL = c("Denotes team members knowing what their roles are. Also requires role acceptance and role performance. Members also need to understand roles of other members, and this understanding has to be the same between all members.", "Influencing individuals and groups toward specific goals. Good leaders are good planners, organisers, and decision makers, and are able to empower others to action.", "Togetherness of the team. Can be either task (united in pursuit of goals), or social (united in their social interactions).", "Team members are aware of emotional climate in the team, and may modify their moods to that climate."))
-```
 
-```{r team-table, echo = FALSE}
 knitr::kable(team_table, format = "html")
 ```
 
@@ -118,11 +124,18 @@ knitr::kable(team_table, format = "html")
 
 # Factors Limiting Performance 
 
+The previous factors may enhance performance, but there's also a few that diminish it. Identify these devils, and eliminate them:
+
+--
+
  1. Lack of quality and/or quantity of sleep
  2. Tiredness
  3. Performance usually decreases after a midday meal, ‘post-lunch dip’
  4. Perceived stress - this will lead to ‘deautomisation’ of learnt skills, over-thinking, and ‘paralysis by analysis’.
- 
+
+--
+
+Given these hazards, let's uncover ways to combat them...
  
 ---
 
@@ -136,7 +149,7 @@ Most important strategy to cope is to reinterpret the situation to reduce or eli
 
 --
 
-For example, if you sit an exam, the act of writing answers to questions on the paper is not stressful. Instead, the pressure _you_ bring to that exam is stressful. Your parents _expecting you_ to get high marks is stressful. Worrying about _your friends_ getting higher marks is stressful. Worrying about not getting onto a course _you want_ is stressful. 
+For example, if you sit an exam, the act of writing answers to questions on a piece of paper is not stressful on its own. Instead, the pressure _you_ bring to that exam is stressful. Your parents _expecting you_ to get high marks is stressful. Worrying about _your friends_ getting higher marks is stressful. Worrying about not getting onto a course _you want_ is stressful. 
 
 --
 
@@ -149,6 +162,8 @@ If you identify these factors as the source of stress, you can reassess them, el
 Aside from reinterpreting your situation, there is a multitude of other strategies and resources to cope with a stressful situation. 
 
 Specifically, you can deploy problem-focused or emotion-focused coping. 
+
+--
 
 .pull-left[
 Problem-focused look at changing the problems causing distress, usually by problem-solving and increased effort. 
@@ -183,18 +198,28 @@ Time management
 
 --
 
-Strong social support. Social support is the most important, as it’s been linked to enhanced well-being. 
+Strong social support. Social support is the most important, as it’s been linked to enhanced well-being. Keep in touch with you family and friends. Tell them how you feel. Sociliase.
+
+At the very least, if you have a problem, voice it to your support network; and prove [Donald Winnicott](https://en.wikipedia.org/wiki/Donald_Winnicott) wrong:
+
+> The Englishman does not want to be upset, to be reminded that there are personal tragedies all over the place, that he is really not happy in himself.
 
 --
 
-Plus, a high carbohydrate breakfast can improve morning performance. If you feel performance is needed before lunch, grab a McMuffian. 
+Plus, a high carbohydrate breakfast can improve morning performance. If you feel performance is needed before lunch, grab a McMuffan!
 
 ---
 name: mindset
 
 # Advice on your mindset
 
-Developing a growth mindset is better in the long run
+Now that we've explored the factors determining performance, let's finish on two summary slides for ease of reference. 
+
+In the first one here, we talk about the specific mindset you bring to situations. 
+
+--
+
+Developing a *growth mindset* is better in the long run
 
 --
 
@@ -216,6 +241,10 @@ Psychological skills help performance (goal-setting, imagery, relaxation etc). T
 
 # Practical psychological strategies to enhance performance
 
+Whilst in this second and last one, if you want ten pithy rules to slap on your wall for enhanced performance, *viola*:
+
+--
+ 
  1. Become an optimist, rather than a pessimist
  2. Practice and performance are positively related - more you put in, more you’ll get out
  3. Replicate what you do when things go well
