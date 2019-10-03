@@ -78,7 +78,7 @@ SMART goals - being specific and realistic - allow you to focus on things you ca
 ---
 name: relax_pic
 class: left
-background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Mournes_wiki.jpg/1200px-Mournes_wiki.jpg)
+background-image: url(http://news.bbcimg.co.uk/media/images/68018000/jpg/_68018113_summerbeach.jpg)
 background-size: cover
 
 # Relaxation & meditation
