@@ -19,3 +19,132 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 
 # Introduction
 
+Using R and Git for your analytical work is an order of magnitude more reproducible, efficient, and _cool_ than using a twisted trinity of SQL, Excel, and Word. 
+
+---
+
+# Content
+
+First I'll talk about the statistical programming language `R`, and how it can replace operations traditionally run in `SQL` and `Excel`. 
+
+And then secondly, I will show how you can ensure your analytical work is auditable, xplanable, and reproducible with the version control software `Git`. 
+
+---
+
+# R 
+
+R is class. It runs data querying, data manipulation, data presentation, and data visulisation **all in one**. 
+
+---
+
+# SQL Ops in R
+
+You can pass literal `SQL` queries to R, or learn the `dplyr` suite of commands to translate SQL data querying commands in R.
+
+---
+
+```{r sql-and-r, echo=FALSE}
+library(kableExtra) # renders R tables in HTML files
+
+knitr::kable(
+  data.frame(
+    SQL_Statements = c(
+      "Select Top 100 *",
+      "Order By Col A (DESC)",
+      "Group By Col A",
+      "Select Function(COL A, COL B) 'New Column Name'",
+      "From Table A
+      Left Join Table B
+      On A.Key = B.Key"
+    ),
+    DPLYR_Version = c(
+      "top_n(100)",
+      "arrange(desc(Col A))",
+      "group_by(Col A)",
+      "mutate(New Column Name = Function(Col A, Col B, etc))",
+      "left_join(Table 1, Table B, by = 'Key')"
+    )
+  )
+) %>% kable_styling() # renders the knitr table into the HTML file
+```
+
+---
+
+# Excel Ops in R
+
+`Excel` is great because it presents tabular data well. You can select, filter, and sort this data. There's an R package called `DT` that does this, but with more _chutzpah_. 
+
+```{r dt-tables, echo=FALSE}
+library(DT)
+
+DT::datatable(
+  data = dplyr_select %>% filter(TALLPUP_ACAD_1618 != 'NE') %>% mutate(TALLPUP_ACAD_1618 = as.numeric(TALLPUP_ACAD_1618)) %>% 
+    mutate(TALLPPE_ACAD_1618 = as.numeric(TALLPPE_ACAD_1618)) %>% 
+    mutate(TALLPPEGRD_ACAD_1618 = as.factor(TALLPPEGRD_ACAD_1618)),  # data you want to display
+  filter = "top", # column filter boxes. As all these columns are character, they can only filter for strings. Change the data types to 
+  # either Factor or num to filter based on groups or numeric ranges respectively 
+  extensions = "Buttons",  # add the option of buttons to the table
+  rownames = T,
+  width = "100%",  # full width
+  options = list(
+    buttons = list(extend = "collection",
+      buttons = c("csv", "pdf", "excel", "copy")),  # download extension options
+    autoWidth = TRUE,  # column width consistent when making selections
+    dom = "Brtip" #  B in dom denotes the place where the buttons are to be inserted
+    )
+)
+```
+
+---
+
+# Charts in R
+
+You ever heard of `ggplot2`? It's class. Let me show you a few...
+
+---
+
+# Git
+
+Latest and greatest version control system. 
+
+---
+
+# Working solo with Git
+
+Committing and commit messages. 
+
+---
+
+# Branching out with Git
+
+Branching and merging. Keep your folders clean and tidy with one working version of files at one point in time. 
+
+---
+
+# Working together with Git
+
+Using services like `Github` and `Azure DevOps` to work together on a central set - _repository_ - of files.  
+
+---
+
+# How do I learn these?
+
+If you already know SQL and Excel^1, read my [Coffee and Coding session on Github](https://github.com/dfe-analytical-services/coffee-and-coding/tree/master/20181121_sql-and-excel-to-r) to see how to translate those operations into R. 
+
+And then [read this](https://github.com/dfe-analytical-services/coffee-and-coding/tree/master/20190220_gooey-git_sandsy) to understand Git, and how to do the ops (committing, branching, and merging) you will spend the majority of your time doing.
+
+.footnote[
+To read both resources, click on the link containing the word 'doanload' at the bottom of each pages, save the files, and then open the html files in your favourite browser (which **should not be** Internet Explorer). 
+]
+
+---
+
+# Conclusion
+
+> All their life in this world and all their adventures had only been the cover and the title page: now at last they were beginning Chapter One of the Great Story which no one on earth has read: which goes on for ever: in which every chapter is better than the one before.
+
+.footnote[
+[1] C.S. Lewis, The Last Battle
+]
+
+
