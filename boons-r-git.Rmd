@@ -1,0 +1,21 @@
+---
+title: "The Boons of R and Git"
+subtitle: "The bountiful benefits of using R and Git for analytical work"
+author: "David Sands"
+date: "`r Sys.Date()`" 
+output: 
+  xaringan::moon_reader:
+    nature:
+      highlightStyle: github 
+      highlightLines: true
+---
+
+<!-- Example of a comment -->
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+```
+
+# Introduction
+
