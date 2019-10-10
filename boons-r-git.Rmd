@@ -60,7 +60,8 @@ results_2017 <- DBI::dbReadTable(conn1, Id(schema = "dbo", table = "KS5_England_
 
 ```{r sql-op}
 # Example of standard SQL Select statement
-sql_select <- DBI::dbGetQuery(conn1, "SELECT SCHNAME, TALLPUP_ACAD_1618, TALLPPE_ACAD_1618, TALLPPEGRD_ACAD_1618
+sql_select <- DBI::dbGetQuery(conn1, "SELECT SCHNAME, TALLPUP_ACAD_1618, 
+TALLPPE_ACAD_1618, TALLPPEGRD_ACAD_1618
 FROM dbo.KS5_England_Results_2017
 WHERE LEA = 373 -- We're selecting schools from Hilly Sheffield. Ey up!
 ORDER BY TALLPPE_ACAD_1618 DESC")
@@ -70,11 +71,14 @@ ORDER BY TALLPPE_ACAD_1618 DESC")
 
 ```{r dplyr-op}
 # Now here's an example of how to translate the above statement into R commands
-# First, we import the dplyr package. This provides commands for the vast majority of data manipulation you need to do
+# First, we import the dplyr package. This provides commands for the vast majority 
+# of data manipulation you need to do
 library(dplyr)
 
 # Second, pull in the data you'll use. This replaces the FROM statement.
-# Notice as well the below '%>%'? It is called a 'pipe'. It pipes (or chains) commands together so that they can be executed at the same time. To produce a pipe, type CTRL + SHIFT + M:
+# Notice as well the below '%>%'? It is called a 'pipe'. It pipes (or chains) 
+# commands together so that they can be executed at the same time. 
+# To produce a pipe, type CTRL + SHIFT + M:
 dplyr_select <- results_2017 %>% 
 # Then replace the where statement with a filter statement:
   filter(LEA == 373) %>% arrange(desc(TALLPPE_ACAD_1618)) %>% 
@@ -118,13 +122,15 @@ knitr::kable(
 
 `Excel` is great because it presents tabular data well. You can select, filter, and sort this data. There's an R package called `DT` that does this, but with more _chutzpah_. 
 
-```{r dt-tables, echo=FALSE}
+---
+
+```{r dt-tables, echo=FALSE, tidy=FALSE}
 library(DT)
 
 dplyr_select %>% filter(TALLPUP_ACAD_1618 != 'NE') %>% mutate(TALLPUP_ACAD_1618 = as.numeric(TALLPUP_ACAD_1618)) %>% 
     mutate(TALLPPE_ACAD_1618 = as.numeric(TALLPPE_ACAD_1618)) %>% 
     mutate(TALLPPEGRD_ACAD_1618 = as.factor(TALLPPEGRD_ACAD_1618)) %>% 
-  DT::datatable(filter = "top")  # add filter guages to the top of the table
+  DT::datatable(fillContainer = FALSE, options = list(pageLength = 6))  
 ```
 
 ---
@@ -132,6 +138,52 @@ dplyr_select %>% filter(TALLPUP_ACAD_1618 != 'NE') %>% mutate(TALLPUP_ACAD_1618 
 # Charts in R
 
 You ever heard of `ggplot2`? It's class. Let me show you a few...
+
+--
+
+First, let's plot a histogram. 
+
+--
+And then in color
+
+--
+
+And then one with colors by grade
+
+```{r ggplot-data, echo=FALSE}
+# install/packages("ggplot2"")
+library(ggplot2)
+
+# Format the data for visulisation
+plot_data <- dplyr_select %>% filter(TALLPUP_ACAD_1618 != 'NE') %>% mutate(TALLPUP_ACAD_1618 = as.numeric(TALLPUP_ACAD_1618)) %>% 
+    mutate(TALLPPE_ACAD_1618 = as.numeric(TALLPPE_ACAD_1618)) %>% 
+    mutate(TALLPPEGRD_ACAD_1618 = as.factor(TALLPPEGRD_ACAD_1618))
+```
+
+---
+
+```{r ggplot-hist}
+
+# Plot a histogram
+ggplot2::ggplot(data = plot_data, mapping = aes(TALLPPEGRD_ACAD_1618)) + 
+  geom_histogram(stat = "count")
+```
+
+---
+
+```{r hist-color}
+# Plot a histogram with colour
+ggplot(data = plot_data, mapping = aes(TALLPPEGRD_ACAD_1618)) + 
+  geom_histogram(stat = "count", fill = "#FF9999")
+```
+
+---
+
+```{r hist-color-group}
+# Plot a histogram with a colour per each group of the grade variable
+ggplot(data = plot_data, mapping = aes(TALLPPEGRD_ACAD_1618, fill = TALLPPEGRD_ACAD_1618)) + 
+  geom_histogram(stat = "count")
+```
 
 ---
 
@@ -163,7 +215,7 @@ Using services like `Github` and `Azure DevOps` to work together on a central se
 
 If you already know SQL and Excel, read my [Coffee and Coding session on Github](https://github.com/dfe-analytical-services/coffee-and-coding/tree/master/20181121_sql-and-excel-to-r) to see how to translate those operations into R. 
 
-And then [read this](https://github.com/dfe-analytical-services/coffee-and-coding/tree/master/20190220_gooey-git_sandsy) to understand Git, and how to do the ops (committing, branching, and merging) you will spend the majority of your time doing.
+And then [read this other Coffee and Coding sesh](https://github.com/dfe-analytical-services/coffee-and-coding/tree/master/20190220_gooey-git_sandsy) to understand Git, and how to do the ops (committing, branching, and merging) you will spend the majority of your time doing.
 
 .footnote[
 To read both resources, click on the link containing the word 'doanload' at the bottom of each pages, save the files, and then open the html files in your favourite browser (which **should not be** Internet Explorer). 
