@@ -189,13 +189,28 @@ ggplot(data = plot_data, mapping = aes(TALLPPEGRD_ACAD_1618, fill = TALLPPEGRD_A
 
 # Git
 
-Latest and greatest version control system. 
+> Git is the best version control system for files (as at 2019)
+
+By using it, you will be using the latest and greatest version control system to:
+
+--
+
+make your analysis more auditable;
+
+--
+
+
+forever banish annoying manual version control like .v2, .v3, .v3final, .v4FINALFINAL!!!!!!; and,
+
+--
+
+make QA of code easier
 
 ---
 
 # Working solo with Git
 
-Committing and commit messages. 
+In git, you work with files in R as you normally do. Then, once you’ve hit a stage where you want a save of where you’re at (usually after adding a change to your code that makes it do something different that it didn’t do before the change), you save the files you’re working with, `stage` them, and then `commit` those staged files.
 
 ---
 
@@ -208,6 +223,20 @@ Branching and merging. Keep your folders clean and tidy with one working version
 # Working together with Git
 
 Using services like `Github` and `Azure DevOps` to work together on a central set - _repository_ - of files.  
+
+---
+
+# Benefits of using Git
+
+You know running? That aerobic exercise where you’re wheezing, tired, get sore legs and knees after a while, and maybe even get blasted with rain and wind if you do it outside? Where you get home all covered in sweat, limping down the corridor feeling sticky and gooey?
+
+Well, doing that for an hour adds about [seven hours onto your life](https://www.nytimes.com/2017/04/12/well/move/an-hour-of-running-may-add-seven-hours-to-your-life.html)
+
+It’s the same thing we Git. By putting yourself under a bit of hassle now to record what you do, and creating and managing branches when you need to add a major different feature to code, you are garnering a variety of long-term benfits like:
+
+ 1. creating a clear, auditable trail of how you created your code for QA, and for your own record;
+ 2. improving knowledge management by documentating why you made changes in the commit messages; and,
+ 3. preventing cluttered and confusing folders by using branches to keep files with different contents and features seperate.
 
 ---
 
