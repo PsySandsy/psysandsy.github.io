@@ -21,13 +21,27 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 
 Using R and Git for your analytical work is an order of magnitude more reproducible, efficient, and _cool_ than using a twisted trinity of SQL, Excel, and Word. 
 
+???
+
+That's enough dating for today folks...yous have got wifes and husbands to go home to!
+
+But, just as a healthy relationship promotes personal growth, so shall I show you how you can use R and Git to grow as an analyst in a healthy, norishing, polyamorous relationship. 
+
 ---
 
 # Content
 
 First I'll talk about the statistical programming language `R`, and how it can replace operations traditionally run in `SQL` and `Excel`. 
 
-And then secondly, I will show how you can ensure your analytical work is auditable, xplanable, and reproducible with the version control software `Git`. 
+And then, I will show how you can ensure your analytical work is auditable, xplanable, and reproducible with the version control software `Git`. 
+
+???
+
+Imagine this - EES is released and writing publications is now a dodle. Now that time has been saved there, you've got a bit more time to automate and enhance the other work you do. 
+
+How are you going to do that?
+
+By using these two buddies of yours. 
 
 ---
 
@@ -41,7 +55,7 @@ R is class. It runs data querying, data manipulation, data presentation, and dat
 
 You can pass literal `SQL` queries to R, or learn the `dplyr` suite of commands to translate SQL data querying commands in R.
 
-```{r sql-import}
+```{r sql-import, echo=FALSE}
 # Import needed packages
 library(DBI)
 library(odbc)
@@ -53,21 +67,22 @@ conn1 <- dbConnect(odbc(), .connection_string = "driver={SQL Server}; server=3DC
 results_2017 <- DBI::dbReadTable(conn1, Id(schema = "dbo", table = "KS5_England_Results_2017"))
 ```
 
----
-
-# SQL vs R
-
+Here is a standard SQL query. It returns KS5 performance data from schools in the Sheffield Local Education Area for summer 2017
 
 ```{r sql-op}
 # Example of standard SQL Select statement
 sql_select <- DBI::dbGetQuery(conn1, "SELECT SCHNAME, TALLPUP_ACAD_1618, 
-TALLPPE_ACAD_1618, TALLPPEGRD_ACAD_1618
+TALLPPEGRD_ACAD_1618
 FROM dbo.KS5_England_Results_2017
 WHERE LEA = 373 -- We're selecting schools from Hilly Sheffield. Ey up!
 ORDER BY TALLPPE_ACAD_1618 DESC")
 ```
 
+---
 
+# R version of SQL commands
+
+And then, here's all the same ops in R
 
 ```{r dplyr-op}
 # Now here's an example of how to translate the above statement into R commands
@@ -83,9 +98,26 @@ dplyr_select <- results_2017 %>%
 # Then replace the where statement with a filter statement:
   filter(LEA == 373) %>% arrange(desc(TALLPPE_ACAD_1618)) %>% 
 # Then select the variables you want to pull through:
-  select(SCHNAME, TALLPUP_ACAD_1618, TALLPPE_ACAD_1618, TALLPPEGRD_ACAD_1618)
+  select(SCHNAME, TALLPUP_ACAD_1618, TALLPPEGRD_ACAD_1618)
 ```
 
+---
+
+```{r sql-result}
+knitr::kable(sql_select, format = "html")
+```
+
+???
+
+And here's proof they produce the same results!
+
+---
+
+```{r dplyr-result}
+knitr::kable(dplyr_select, format = "html")
+```
+
+So, if you can do standard SQL querying in R...why not start trying it out?
 
 ---
 
@@ -116,28 +148,44 @@ knitr::kable(
 ) %>% kable_styling() # renders the knitr table into the HTML file
 ```
 
+???
+
+To make transitioning even easier, here's the translations of the SQL ops you love so dearly. 
+
 ---
 
 # Excel Ops in R
 
-`Excel` is great because it presents tabular data well. You can select, filter, and sort this data. There's an R package called `DT` that does this, but with more _chutzpah_. 
+`Excel` is great because it presents tabular data well. You can select, filter, and sort this data. 
+
+But it's _soooooooooooo_ old. And there's only so many times you can wear the same outfit. Surely a little bit of change is in order? 
+
+Well do not despair! As you can translate Excel ops in R as well. There's an R package called `DT` that does this, but with more _chutzpah_. 
 
 ---
 
-```{r dt-tables, echo=FALSE, tidy=FALSE}
-library(DT)
-
-dplyr_select %>% filter(TALLPUP_ACAD_1618 != 'NE') %>% mutate(TALLPUP_ACAD_1618 = as.numeric(TALLPUP_ACAD_1618)) %>% 
-    mutate(TALLPPE_ACAD_1618 = as.numeric(TALLPPE_ACAD_1618)) %>% 
-    mutate(TALLPPEGRD_ACAD_1618 = as.factor(TALLPPEGRD_ACAD_1618)) %>% 
-  DT::datatable(fillContainer = FALSE, options = list(pageLength = 6))  
+```{r dt-tables, tidy=FALSE}
+DT::datatable(
+  head(iris, 10),
+  fillContainer = FALSE, options = list(pageLength = 8)
+) 
 ```
+
+???
+
+Now this looks alright, but you can do a lot more with DT if you create the table in an html file. Let me show you can example of that now...
+
+You can now select, filter, and sort tabular data in R. But Excel still seems to win out on one aspect - charts. 
+
+Ah ha, not so fast there...because R can do that better as well. 
 
 ---
 
 # Charts in R
 
-You ever heard of `ggplot2`? It's class. Let me show you a few...
+You ever heard of `ggplot2`? It's class. It is the favorite way to create visually-arresting charts in R
+
+Want to see what they look like? Well, let me show you a few...
 
 --
 
@@ -156,9 +204,12 @@ library(ggplot2)
 
 # Format the data for visulisation
 plot_data <- dplyr_select %>% filter(TALLPUP_ACAD_1618 != 'NE') %>% mutate(TALLPUP_ACAD_1618 = as.numeric(TALLPUP_ACAD_1618)) %>% 
-    mutate(TALLPPE_ACAD_1618 = as.numeric(TALLPPE_ACAD_1618)) %>% 
     mutate(TALLPPEGRD_ACAD_1618 = as.factor(TALLPPEGRD_ACAD_1618))
 ```
+
+???
+
+We've had enough black and white so far folks. But now we need to give this painting a bit 'o colour...
 
 ---
 
@@ -169,6 +220,10 @@ ggplot2::ggplot(data = plot_data, mapping = aes(TALLPPEGRD_ACAD_1618)) +
   geom_histogram(stat = "count")
 ```
 
+???
+
+We've visualised here the KS5 Sheffield school results from earlier. Now it looks alright aye, but we can make this better...
+
 ---
 
 ```{r hist-color}
@@ -177,6 +232,10 @@ ggplot(data = plot_data, mapping = aes(TALLPPEGRD_ACAD_1618)) +
   geom_histogram(stat = "count", fill = "#FF9999")
 ```
 
+???
+
+Very nice. But, let's break this down by the group of average grades to explore further
+
 ---
 
 ```{r hist-color-group}
@@ -184,6 +243,24 @@ ggplot(data = plot_data, mapping = aes(TALLPPEGRD_ACAD_1618)) +
 ggplot(data = plot_data, mapping = aes(TALLPPEGRD_ACAD_1618, fill = TALLPPEGRD_ACAD_1618)) + 
   geom_histogram(stat = "count")
 ```
+
+???
+
+Oh fabulous! 
+
+---
+
+# The Benefits of R
+
+ 1. Does the majority of SQL tasks
+ 2. Replaces the uses of Excel
+ 3. Brings all the steps of an analytical project into one
+
+???
+
+At 15 minutes, switch to Git
+
+So to reflect on this section, R can do all the traditional steps of an analytical project (data querying, presentation, and visualisation) in one. Now, for meat-heads out there, you don't eat a BLT with the Bacon on one plate, the lettuce on the other, and the tomato on the third. Instead, you have it all together. So not give your work the same juicy treatment?
 
 ---
 
@@ -195,16 +272,20 @@ By using it, you will be using the latest and greatest version control system to
 
 --
 
-make your analysis more auditable;
+Make your analysis more auditable;
 
 --
 
 
-forever banish annoying manual version control like .v2, .v3, .v3final, .v4FINALFINAL!!!!!!; and,
+Forever banish annoying manual version control like .v2, .v3, .v3final, .v4FINALFINAL!!!!!!; and,
 
 --
 
 make QA of code easier
+
+???
+
+Who here has heard of Git? Or really? Well just yous sit back there, and I'll explain what it is...
 
 ---
 
@@ -212,31 +293,47 @@ make QA of code easier
 
 In git, you work with files in R as you normally do. Then, once you’ve hit a stage where you want a save of where you’re at (usually after adding a change to your code that makes it do something different that it didn’t do before the change), you save the files you’re working with, `stage` them, and then `commit` those staged files.
 
+Once you do this, you'll make a message of the changes you want to commit. Think of it like saving a video game. The moment you save the progress you’ve made in that game, you can go back to that point if you want. The act of committing a set of files is just you saving the progress you’ve made in that code – allowing you to go back to that point if you want.
+
 ---
 
 # Branching out with Git
 
-Branching and merging. Keep your folders clean and tidy with one working version of files at one point in time. 
+Say for some reason (QA, Policy want experimental analysis, several people need to work on the project), you need to create a wholly new version of a file. Instead of doing the File_v1, file_v2, file_final_v1, file_final_v2 format, you just make a new branch in the path of your Git commits and switch to that. To borrow the game analogy, imagine if you’re playing Civilisation, and you want to see what would happen if your country went to war with another. You’d save the game just before you went to war, then go to war and see what happens.
+
+If, though, things didn’t work out well for your civilisation, you would just load your game from before you went to war, and continue on independently to what you did before you went to war.
+
+The same logic applies here. By creating a branch, you are allowing files to be edited, whilst keeping an original version of them to revert back to if you need or want to.
 
 ---
 
 # Working together with Git
 
+Now, Git is great when working solo because you can track and audit your work deftly.
+
+But no skyscraper was ever built by one person. It takes hundreds to thousands of skilled personal working with a shared vision to bring _art_ to life.
+
+Same with Git. It's boon really starts blooming when you use it to work collabotativly. 
+
 Using services like `Github` and `Azure DevOps` to work together on a central set - _repository_ - of files.  
+
+---
+
+# Github
+
+
 
 ---
 
 # Benefits of using Git
 
-You know running? That aerobic exercise where you’re wheezing, tired, get sore legs and knees after a while, and maybe even get blasted with rain and wind if you do it outside? Where you get home all covered in sweat, limping down the corridor feeling sticky and gooey?
+Current version control are like leeches - continual pain is sold as the treatment to all your collaborative problems. 
 
-Well, doing that for an hour adds about [seven hours onto your life](https://www.nytimes.com/2017/04/12/well/move/an-hour-of-running-may-add-seven-hours-to-your-life.html)
+Whereas Git is like a vaccine: after the initial wince of getting it, you garner a variety of long-term benfits like:
 
-It’s the same thing we Git. By putting yourself under a bit of hassle now to record what you do, and creating and managing branches when you need to add a major different feature to code, you are garnering a variety of long-term benfits like:
-
- 1. creating a clear, auditable trail of how you created your code for QA, and for your own record;
- 2. improving knowledge management by documentating why you made changes in the commit messages; and,
- 3. preventing cluttered and confusing folders by using branches to keep files with different contents and features seperate.
+ 1. Creating a clear, auditable trail of how you created your code for QA, and for your own record;
+ 2. Improving knowledge management by documentating why you made changes in the commit messages; and,
+ 3. Preventing cluttered and confusing folders by using branches to keep files with different contents and features seperate.
 
 ---
 
@@ -247,7 +344,7 @@ If you already know SQL and Excel, read my [Coffee and Coding session on Github]
 And then [read this other Coffee and Coding sesh](https://github.com/dfe-analytical-services/coffee-and-coding/tree/master/20190220_gooey-git_sandsy) to understand Git, and how to do the ops (committing, branching, and merging) you will spend the majority of your time doing.
 
 .footnote[
-To read both resources, click on the link containing the word 'doanload' at the bottom of each pages, save the files, and then open the html files in your favourite browser (which **should not be** Internet Explorer). 
+To read both resources, click on the link containing the word 'download' at the bottom of each pages, save the files, and then open the html files in your favourite browser (which **should not be** Internet Explorer). 
 ]
 
 ---
