@@ -23,9 +23,9 @@ Using R and Git for your analytical work is an order of magnitude more reproduci
 
 ???
 
-That's enough dating for today folks...yous have got wifes and husbands to go home to!
+That's enough dating for today folks...yous have got wife's and husbands to go home to!
 
-But, just as a healthy relationship promotes personal growth, so shall I show you how you can use R and Git to grow as an analyst in a healthy, norishing, polyamorous relationship. 
+But, just as a healthy relationship promotes personal growth, so shall I show you how you can use R and Git to grow as an analyst in a healthy, nourishing, polyamorous relationship. 
 
 ---
 
@@ -33,11 +33,11 @@ But, just as a healthy relationship promotes personal growth, so shall I show yo
 
 First I'll talk about the statistical programming language `R`, and how it can replace operations traditionally run in `SQL` and `Excel`. 
 
-And then, I will show how you can ensure your analytical work is auditable, xplanable, and reproducible with the version control software `Git`. 
+And then, I will show how you can ensure your analytical work is auditable, explainable, and reproducible with the version control software `Git`. 
 
 ???
 
-Imagine this - EES is released and writing publications is now a dodle. Now that time has been saved there, you've got a bit more time to automate and enhance the other work you do. 
+Imagine this - EES is released and writing publications is now a doddle. Now that time has been saved there, you've got a bit more time to automate and enhance the other work you do. 
 
 How are you going to do that?
 
@@ -47,7 +47,7 @@ By using these two buddies of yours.
 
 # R 
 
-R is class. It runs data querying, data manipulation, data presentation, and data visulisation **all in one**. 
+R is class. It runs data querying, data manipulation, data presentation, and data visualisation **all in one**. 
 
 ---
 
@@ -76,6 +76,8 @@ TALLPPEGRD_ACAD_1618
 FROM dbo.KS5_England_Results_2017
 WHERE LEA = 373 -- We're selecting schools from Hilly Sheffield. Ey up!
 ORDER BY TALLPPE_ACAD_1618 DESC")
+
+DBI::dbDisconnect(conn1)
 ```
 
 ---
@@ -192,6 +194,7 @@ Want to see what they look like? Well, let me show you a few...
 First, let's plot a histogram. 
 
 --
+
 And then in color
 
 --
@@ -209,7 +212,7 @@ plot_data <- dplyr_select %>% filter(TALLPUP_ACAD_1618 != 'NE') %>% mutate(TALLP
 
 ???
 
-We've had enough black and white so far folks. But now we need to give this painting a bit 'o colour...
+We've had enough black and white so far folks. But now we need to give this painting a bit 'o color...
 
 ---
 
@@ -291,9 +294,19 @@ Who here has heard of Git? Or really? Well just yous sit back there, and I'll ex
 
 # Working solo with Git
 
-In git, you work with files in R as you normally do. Then, once you’ve hit a stage where you want a save of where you’re at (usually after adding a change to your code that makes it do something different that it didn’t do before the change), you save the files you’re working with, `stage` them, and then `commit` those staged files.
+With Git, you work with files in R and SQL as you normally do. Then, once you’ve hit a stage where you want a save of where you’re at (usually after adding a change to your code that makes it do something different that it didn’t do before the change), you save the files you’re working with, `stage` them, and then `commit` those staged files.
 
 Once you do this, you'll make a message of the changes you want to commit. Think of it like saving a video game. The moment you save the progress you’ve made in that game, you can go back to that point if you want. The act of committing a set of files is just you saving the progress you’ve made in that code – allowing you to go back to that point if you want.
+
+You can make this save because Git tracks the what lines of codes has been added or removed from files between different commits[1]. Visually they look like this:
+
+.footnote[
+[1] Git tracks files by creating a repository (or repo) of all the changes made to the files you commit.
+]
+
+---
+
+<img src = "images/01.png">
 
 ---
 
@@ -307,21 +320,53 @@ The same logic applies here. By creating a branch, you are allowing files to be 
 
 ---
 
+<img src = "images/02.png">
+
+---
+
 # Working together with Git
 
 Now, Git is great when working solo because you can track and audit your work deftly.
 
+--
+
 But no skyscraper was ever built by one person. It takes hundreds to thousands of skilled personal working with a shared vision to bring _art_ to life.
 
-Same with Git. It's boon really starts blooming when you use it to work collabotativly. 
+--
 
-Using services like `Github` and `Azure DevOps` to work together on a central set - _repository_ - of files.  
+Same with Git. It's boon really starts blooming when you use it to work collaboratively. 
+
+--
+
+Using services like `Github` and `Azure DevOps`, you can work together on a central set - _repository_ - of files. 
+
+???
+
+You place the repo created in your Git project onto a central location. Other analysts can then access that remote repo, download your code, change it, and send those changes back to the central location. 
+
+---
+
+<img src = "images/03.png">
 
 ---
 
 # Github
 
+Used to **publically host** code and data. Whizkid Cameron used it to host the [EES Data Screener](https://github.com/lauraselby/data-screener) tool:
 
+<img src = "images/04.png">
+
+---
+
+# Azure DevOps
+
+Exactly the same as Git hub, except you can only access it with DfE credentials. It allows collaborative working on `Official Sensitive` files that are not suitable for viewing by the general public.
+
+<img src = "images/05.png">
+
+???
+
+Here is the repo I sent to Azure, containing the presentation you are seeing.  
 
 ---
 
@@ -329,11 +374,11 @@ Using services like `Github` and `Azure DevOps` to work together on a central se
 
 Current version control are like leeches - continual pain is sold as the treatment to all your collaborative problems. 
 
-Whereas Git is like a vaccine: after the initial wince of getting it, you garner a variety of long-term benfits like:
+Whereas Git is like a vaccine: after the initial wince of getting it, you garner a variety of long-term benefits like:
 
- 1. Creating a clear, auditable trail of how you created your code for QA, and for your own record;
- 2. Improving knowledge management by documentating why you made changes in the commit messages; and,
- 3. Preventing cluttered and confusing folders by using branches to keep files with different contents and features seperate.
+ 1. Creating a clear, audit-able trail of how you created your code for QA, and for your own record;
+ 2. Preventing cluttered and confusing folders by using branches to keep files with different contents and features separate; and, 
+ 3. Allowing easy and seamless collaborative working
 
 ---
 
@@ -344,7 +389,7 @@ If you already know SQL and Excel, read my [Coffee and Coding session on Github]
 And then [read this other Coffee and Coding sesh](https://github.com/dfe-analytical-services/coffee-and-coding/tree/master/20190220_gooey-git_sandsy) to understand Git, and how to do the ops (committing, branching, and merging) you will spend the majority of your time doing.
 
 .footnote[
-To read both resources, click on the link containing the word 'download' at the bottom of each pages, save the files, and then open the html files in your favourite browser (which **should not be** Internet Explorer). 
+To read both resources, click on the link containing the word 'download' at the bottom of each pages, save the files, and then open the html files in your favorite browser (which **should not be** Internet Explorer). 
 ]
 
 ---

@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>The Boons of R and Git</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="David Sands" />
+    <meta name="date" content="2019-10-16" />
+    <link href="boons-r-git_files/remark-css/default.css" rel="stylesheet" />
+    <link href="boons-r-git_files/remark-css/default-fonts.css" rel="stylesheet" />
+    <script src="boons-r-git_files/kePrint/kePrint.js"></script>
+    <script src="boons-r-git_files/htmlwidgets/htmlwidgets.js"></script>
+    <script src="boons-r-git_files/jquery/jquery.min.js"></script>
+    <link href="boons-r-git_files/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
+    <script src="boons-r-git_files/datatables-binding/datatables.js"></script>
+    <link href="boons-r-git_files/dt-core/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="boons-r-git_files/dt-core/css/jquery.dataTables.extra.css" rel="stylesheet" />
+    <script src="boons-r-git_files/dt-core/js/jquery.dataTables.min.js"></script>
+    <link href="boons-r-git_files/crosstalk/css/crosstalk.css" rel="stylesheet" />
+    <script src="boons-r-git_files/crosstalk/js/crosstalk.min.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# The Boons of R and Git
+## The bountiful benefits of using R and Git for analytical work
+### David Sands
+### 2019-10-16
+
+---
+
+
+&lt;!-- Example of a comment --&gt;
+
+
+
+# Introduction
+
+Using R and Git for your analytical work is an order of magnitude more reproducible, efficient, and _cool_ than using a twisted trinity of SQL, Excel, and Word. 
+
+???
+
+That's enough dating for today folks...yous have got wife's and husbands to go home to!
+
+But, just as a healthy relationship promotes personal growth, so shall I show you how you can use R and Git to grow as an analyst in a healthy, nourishing, polyamorous relationship. 
+
+---
+
+# Content
+
+First I'll talk about the statistical programming language `R`, and how it can replace operations traditionally run in `SQL` and `Excel`. 
+
+And then, I will show how you can ensure your analytical work is auditable, explainable, and reproducible with the version control software `Git`. 
+
+???
+
+Imagine this - EES is released and writing publications is now a doddle. Now that time has been saved there, you've got a bit more time to automate and enhance the other work you do. 
+
+How are you going to do that?
+
+By using these two buddies of yours. 
+
+---
+
+# R 
+
+R is class. It runs data querying, data manipulation, data presentation, and data visualisation **all in one**. 
+
+---
+
+# SQL Ops in R
+
+You can pass literal `SQL` queries to R, or learn the `dplyr` suite of commands to translate SQL data querying commands in R.
+
+
+
+Here is a standard SQL query. It returns KS5 performance data from schools in the Sheffield Local Education Area for summer 2017
+
+
+```r
+# Example of standard SQL Select statement
+sql_select &lt;- DBI::dbGetQuery(conn1, "SELECT SCHNAME, TALLPUP_ACAD_1618, 
+TALLPPEGRD_ACAD_1618
+FROM dbo.KS5_England_Results_2017
+WHERE LEA = 373 -- We're selecting schools from Hilly Sheffield. Ey up!
+ORDER BY TALLPPE_ACAD_1618 DESC")
+
+DBI::dbDisconnect(conn1)
+```
+
+---
+
+# R version of SQL commands
+
+And then, here's all the same ops in R
+
+
+```r
+# Now here's an example of how to translate the above statement into R commands
+# First, we import the dplyr package. This provides commands for the vast majority 
+# of data manipulation you need to do
+library(dplyr)
+
+# Second, pull in the data you'll use. This replaces the FROM statement.
+# Notice as well the below '%&gt;%'? It is called a 'pipe'. It pipes (or chains) 
+# commands together so that they can be executed at the same time. 
+# To produce a pipe, type CTRL + SHIFT + M:
+dplyr_select &lt;- results_2017 %&gt;% 
+# Then replace the where statement with a filter statement:
+  filter(LEA == 373) %&gt;% arrange(desc(TALLPPE_ACAD_1618)) %&gt;% 
+# Then select the variables you want to pull through:
+  select(SCHNAME, TALLPUP_ACAD_1618, TALLPPEGRD_ACAD_1618)
+```
+
+---
+
+
+```r
+knitr::kable(sql_select, format = "html")
+```
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; SCHNAME &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; TALLPUP_ACAD_1618 &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; TALLPPEGRD_ACAD_1618 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Sheffield Springs Academy &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NE &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NE &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; UTC Sheffield Olympic Legacy Park &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NE &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NE &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Sheffield High School &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 95 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; B+ &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Birkdale School &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 111 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; B &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Silverdale School &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 180 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; B- &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Tapton School &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 249 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; B- &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; King Ecgbert School &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 128 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; C+ &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; King Edward VII School &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 280 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; C+ &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; High Storrs School &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 191 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; C+ &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Chapeltown Academy &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 94 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; C &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Notre Dame High School &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 220 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; C &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; C &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Bradfield School &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 64 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; C &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; All Saints' Catholic High School &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 165 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; C &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Meadowhead School Academy Trust &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 139 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; C &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Forge Valley School &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 46 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; C- &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Sheffield Park Academy &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 33 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; C- &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Longley Park Sixth Form College &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 178 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; C- &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; UTC Sheffield &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 103 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; D+ &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; The Sheffield College &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 226 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; D- &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+???
+
+And here's proof they produce the same results!
+
+---
+
+
+```r
+knitr::kable(dplyr_select, format = "html")
+```
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; SCHNAME &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; TALLPUP_ACAD_1618 &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; TALLPPEGRD_ACAD_1618 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Sheffield Springs Academy &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NE &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NE &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; UTC Sheffield Olympic Legacy Park &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NE &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NE &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Sheffield High School &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 95 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; B+ &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Birkdale School &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 111 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; B &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Silverdale School &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 180 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; B- &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Tapton School &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 249 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; B- &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; King Ecgbert School &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 128 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; C+ &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; King Edward VII School &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 280 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; C+ &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; High Storrs School &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 191 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; C+ &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Chapeltown Academy &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 94 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; C &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Notre Dame High School &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 220 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; C &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; C &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Bradfield School &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 64 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; C &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; All Saints' Catholic High School &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 165 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; C &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Meadowhead School Academy Trust &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 139 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; C &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Forge Valley School &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 46 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; C- &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Sheffield Park Academy &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 33 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; C- &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Longley Park Sixth Form College &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 178 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; C- &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; UTC Sheffield &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 103 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; D+ &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; The Sheffield College &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 226 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; D- &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+So, if you can do standard SQL querying in R...why not start trying it out?
+
+---
+
+# SQL Ops and their R translations 
+
+&lt;table class="table" style="margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; SQL_Statements &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; DPLYR_Version &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Select Top 100 * &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; top_n(100) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Order By Col A (DESC) &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; arrange(desc(Col A)) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Group By Col A &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; group_by(Col A) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Select Function(COL A, COL B) 'New Column Name' &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; mutate(New Column Name = Function(Col A, Col B, etc)) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; From Table A
+      Left Join Table B
+      On A.Key = B.Key &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; left_join(Table 1, Table B, by = 'Key') &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+???
+
+To make transitioning even easier, here's the translations of the SQL ops you love so dearly. 
+
+---
+
+# Excel Ops in R
+
+`Excel` is great because it presents tabular data well. You can select, filter, and sort this data. 
+
+But it's _soooooooooooo_ old. And there's only so many times you can wear the same outfit. Surely a little bit of change is in order? 
+
+Well do not despair! As you can translate Excel ops in R as well. There's an R package called `DT` that does this, but with more _chutzpah_. 
+
+---
+
+
+```r
+DT::datatable(
+  head(iris, 10),
+  fillContainer = FALSE, options = list(pageLength = 8)
+) 
+```
+
+<div id="htmlwidget-682c3c4a45c7b3d07b1d" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-682c3c4a45c7b3d07b1d">{"x":{"filter":"none","fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10"],[5.1,4.9,4.7,4.6,5,5.4,4.6,5,4.4,4.9],[3.5,3,3.2,3.1,3.6,3.9,3.4,3.4,2.9,3.1],[1.4,1.4,1.3,1.5,1.4,1.7,1.4,1.5,1.4,1.5],[0.2,0.2,0.2,0.2,0.2,0.4,0.3,0.2,0.2,0.1],["setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Sepal.Length<\/th>\n      <th>Sepal.Width<\/th>\n      <th>Petal.Length<\/th>\n      <th>Petal.Width<\/th>\n      <th>Species<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":8,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[8,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+
+???
+
+Now this looks alright, but you can do a lot more with DT if you create the table in an html file. Let me show you can example of that now...
+
+You can now select, filter, and sort tabular data in R. But Excel still seems to win out on one aspect - charts. 
+
+Ah ha, not so fast there...because R can do that better as well. 
+
+---
+
+# Charts in R
+
+You ever heard of `ggplot2`? It's class. It is the favorite way to create visually-arresting charts in R
+
+Want to see what they look like? Well, let me show you a few...
+
+--
+
+First, let's plot a histogram. 
+
+--
+
+And then in color
+
+--
+
+And then one with colors by grade
+
+
+
+???
+
+We've had enough black and white so far folks. But now we need to give this painting a bit 'o color...
+
+---
+
+
+```r
+# Plot a histogram
+ggplot2::ggplot(data = plot_data, mapping = aes(TALLPPEGRD_ACAD_1618)) + 
+  geom_histogram(stat = "count")
+```
+
+![](boons-r-git_files/figure-html/ggplot-hist-1.png)&lt;!-- --&gt;
+
+???
+
+We've visualised here the KS5 Sheffield school results from earlier. Now it looks alright aye, but we can make this better...
+
+---
+
+
+```r
+# Plot a histogram with colour
+ggplot(data = plot_data, mapping = aes(TALLPPEGRD_ACAD_1618)) + 
+  geom_histogram(stat = "count", fill = "#FF9999")
+```
+
+![](boons-r-git_files/figure-html/hist-color-1.png)&lt;!-- --&gt;
+
+???
+
+Very nice. But, let's break this down by the group of average grades to explore further
+
+---
+
+
+```r
+# Plot a histogram with a colour per each group of the grade variable
+ggplot(data = plot_data, mapping = aes(TALLPPEGRD_ACAD_1618, fill = TALLPPEGRD_ACAD_1618)) + 
+  geom_histogram(stat = "count")
+```
+
+![](boons-r-git_files/figure-html/hist-color-group-1.png)&lt;!-- --&gt;
+
+???
+
+Oh fabulous! 
+
+---
+
+# The Benefits of R
+
+ 1. Does the majority of SQL tasks
+ 2. Replaces the uses of Excel
+ 3. Brings all the steps of an analytical project into one
+
+???
+
+At 15 minutes, switch to Git
+
+So to reflect on this section, R can do all the traditional steps of an analytical project (data querying, presentation, and visualisation) in one. Now, for meat-heads out there, you don't eat a BLT with the Bacon on one plate, the lettuce on the other, and the tomato on the third. Instead, you have it all together. So not give your work the same juicy treatment?
+
+---
+
+# Git
+
+&gt; Git is the best version control system for files (as at 2019)
+
+By using it, you will be using the latest and greatest version control system to:
+
+--
+
+Make your analysis more auditable;
+
+--
+
+
+Forever banish annoying manual version control like .v2, .v3, .v3final, .v4FINALFINAL!!!!!!; and,
+
+--
+
+make QA of code easier
+
+???
+
+Who here has heard of Git? Or really? Well just yous sit back there, and I'll explain what it is...
+
+---
+
+# Working solo with Git
+
+With Git, you work with files in R and SQL as you normally do. Then, once you’ve hit a stage where you want a save of where you’re at (usually after adding a change to your code that makes it do something different that it didn’t do before the change), you save the files you’re working with, `stage` them, and then `commit` those staged files.
+
+Once you do this, you'll make a message of the changes you want to commit. Think of it like saving a video game. The moment you save the progress you’ve made in that game, you can go back to that point if you want. The act of committing a set of files is just you saving the progress you’ve made in that code – allowing you to go back to that point if you want.
+
+You can make this save because Git tracks the what lines of codes has been added or removed from files between different commits[1]. Visually they look like this:
+
+.footnote[
+[1] Git tracks files by creating a repository (or repo) of all the changes made to the files you commit.
+]
+
+---
+
+&lt;img src = "images/01.png"&gt;
+
+---
+
+# Branching out with Git
+
+Say for some reason (QA, Policy want experimental analysis, several people need to work on the project), you need to create a wholly new version of a file. Instead of doing the File_v1, file_v2, file_final_v1, file_final_v2 format, you just make a new branch in the path of your Git commits and switch to that. To borrow the game analogy, imagine if you’re playing Civilisation, and you want to see what would happen if your country went to war with another. You’d save the game just before you went to war, then go to war and see what happens.
+
+If, though, things didn’t work out well for your civilisation, you would just load your game from before you went to war, and continue on independently to what you did before you went to war.
+
+The same logic applies here. By creating a branch, you are allowing files to be edited, whilst keeping an original version of them to revert back to if you need or want to.
+
+---
+
+&lt;img src = "images/02.png"&gt;
+
+---
+
+# Working together with Git
+
+Now, Git is great when working solo because you can track and audit your work deftly.
+
+--
+
+But no skyscraper was ever built by one person. It takes hundreds to thousands of skilled personal working with a shared vision to bring _art_ to life.
+
+--
+
+Same with Git. It's boon really starts blooming when you use it to work collaboratively. 
+
+--
+
+Using services like `Github` and `Azure DevOps`, you can work together on a central set - _repository_ - of files. 
+
+???
+
+You place the repo created in your Git project onto a central location. Other analysts can then access that remote repo, download your code, change it, and send those changes back to the central location. 
+
+---
+
+&lt;img src = "images/03.png"&gt;
+
+---
+
+# Github
+
+Used to **publically host** code and data. Whizkid Cameron used it to host the [EES Data Screener](https://github.com/lauraselby/data-screener) tool:
+
+&lt;img src = "images/04.png"&gt;
+
+---
+
+# Azure DevOps
+
+Exactly the same as Git hub, except you can only access it with DfE credentials. It allows collaborative working on `Official Sensitive` files that are not suitable for viewing by the general public.
+
+&lt;img src = "images/05.png"&gt;
+
+???
+
+Here is the repo I sent to Azure, containing the presentation you are seeing.  
+
+---
+
+# Benefits of using Git
+
+Current version control are like leeches - continual pain is sold as the treatment to all your collaborative problems. 
+
+Whereas Git is like a vaccine: after the initial wince of getting it, you garner a variety of long-term benefits like:
+
+ 1. Creating a clear, audit-able trail of how you created your code for QA, and for your own record;
+ 2. Preventing cluttered and confusing folders by using branches to keep files with different contents and features separate; and, 
+ 3. Allowing easy and seamless collaborative working
+
+---
+
+# How do I learn these?
+
+If you already know SQL and Excel, read my [Coffee and Coding session on Github](https://github.com/dfe-analytical-services/coffee-and-coding/tree/master/20181121_sql-and-excel-to-r) to see how to translate those operations into R. 
+
+And then [read this other Coffee and Coding sesh](https://github.com/dfe-analytical-services/coffee-and-coding/tree/master/20190220_gooey-git_sandsy) to understand Git, and how to do the ops (committing, branching, and merging) you will spend the majority of your time doing.
+
+.footnote[
+To read both resources, click on the link containing the word 'download' at the bottom of each pages, save the files, and then open the html files in your favorite browser (which **should not be** Internet Explorer). 
+]
+
+---
+
+# Conclusion
+
+&gt; All their life in this world and all their adventures had only been the cover and the title page: now at last they were beginning Chapter One of the Great Story which no one on earth has read: which goes on for ever: in which every chapter is better than the one before.
+
+.footnote[
+[1] C.S. Lewis, The Last Battle
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
