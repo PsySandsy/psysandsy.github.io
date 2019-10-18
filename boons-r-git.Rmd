@@ -354,7 +354,7 @@ You place the repo created in your Git project onto a central location. Other an
 
 Used to **publically host** code and data. Whizkid Cameron used it to host the [EES Data Screener](https://github.com/lauraselby/data-screener) tool:
 
-<img src = "images/04.png">
+<img src = "images/04.PNG">
 
 ---
 
@@ -362,7 +362,7 @@ Used to **publically host** code and data. Whizkid Cameron used it to host the [
 
 Exactly the same as Git hub, except you can only access it with DfE credentials. It allows collaborative working on `Official Sensitive` files that are not suitable for viewing by the general public.
 
-<img src = "images/05.png">
+<img src = "images/05.PNG">
 
 ???
 
