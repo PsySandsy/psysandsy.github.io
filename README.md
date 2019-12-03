@@ -16,6 +16,12 @@ This showcases the benefits of using R and Git for analytical work. Usage of bot
 
 The presentation [is here](https://psysandsy.github.io/boons-r-git.html). 
 
+## xaringan Teach
+
+This teaches you how to create a xaringan presentation, and gives examples of its capabilities. 
+
+The presentation [is here](https://psysandsy.github.io/xaringan-teach.html).
+
 ### xaringan
 
 Both these presentations were created from the [xaringan package](https://bookdown.org/yihui/rmarkdown/xaringan.html) in R. Once I got used to it, I found it more efficient and effective than either Powerpoint or Keynote. If you learn R, you can also learn xaringan to add data and charts into your presentations easily, as well as let your presentations be version controlled by Git.
