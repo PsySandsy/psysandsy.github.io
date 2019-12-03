@@ -48,9 +48,7 @@ It offers all the capabilities of an R Markdown document in a power-point format
 
 ### How is this different from an R presentation?
 
-In R Studio, you can create an `R Presentation` file to present your analysis in a presentation. 
-
-The difference between this and xaringan is that _xari_ is an order of magnitude more prettier. If these were cars, R Presentation would be a [Reliant Robin](https://www.youtube.com/watch?v=DRGuMKVqNzA), whilst xaringan would be a classic Mini. They do the same job, but one does it with more style and _elan_ than the other. 
+In R Studio, you can create an `R Presentation` file to present your analysis in a presentation. The difference between this and xaringan is that _xari_ is an order of magnitude more prettier. If these were cars, R Presentation would be a [Reliant Robin](https://www.youtube.com/watch?v=DRGuMKVqNzA), whilst xaringan would be a classic Mini. They do the same job, but one does it with more style and _elan_ than the other. 
 
 This session will then focus on how you can build a xaringan presentation to show your work off. 
 
@@ -299,7 +297,6 @@ lvl_and_age %>%
 ]
 
 ---
-
 ```{r ggplot-colour, echo=FALSE}
 lvl_and_age %>% 
   ggplot2::ggplot(mapping = 
@@ -312,7 +309,6 @@ lvl_and_age %>%
 age_starts <- app_starts %>% select(Age, Starts) %>% 
   group_by(Age) %>% summarise(sum_of_starts = sum(Starts)) 
 ```
-
 And once we have beautiful charts nestled in, we can directly reference the data in our text. For instance, this data (taken from the [November FE and Skills release](https://www.gov.uk/government/statistics/further-education-and-skills-november-2019)) shows that the largest group of people starting apprenticeships are 25 or over with `r pull(age_starts %>% filter(Age == "25+"))` starts. Conversely, the smallest group are people aged 18 or less with `r pull(age_starts %>% filter(Age == "Under 19"))` starts
 
 ---

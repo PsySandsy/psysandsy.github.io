@@ -71,9 +71,7 @@ It offers all the capabilities of an R Markdown document in a power-point format
 
 ### How is this different from an R presentation?
 
-In R Studio, you can create an `R Presentation` file to present your analysis in a presentation. 
-
-The difference between this and xaringan is that _xari_ is an order of magnitude more prettier. If these were cars, R Presentation would be a [Reliant Robin](https://www.youtube.com/watch?v=DRGuMKVqNzA), whilst xaringan would be a classic Mini. They do the same job, but one does it with more style and _elan_ than the other. 
+In R Studio, you can create an `R Presentation` file to present your analysis in a presentation. The difference between this and xaringan is that _xari_ is an order of magnitude more prettier. If these were cars, R Presentation would be a [Reliant Robin](https://www.youtube.com/watch?v=DRGuMKVqNzA), whilst xaringan would be a classic Mini. They do the same job, but one does it with more style and _elan_ than the other. 
 
 This session will then focus on how you can build a xaringan presentation to show your work off. 
 
@@ -339,8 +337,8 @@ datatable(data)
 ```
 ---
 
-<div id="htmlwidget-995a69bb21e464c51768" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-995a69bb21e464c51768">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33"],["Agriculture, Horticulture and Animal Care","Agriculture, Horticulture and Animal Care","Agriculture, Horticulture and Animal Care","Arts, Media and Publishing","Arts, Media and Publishing","Arts, Media and Publishing","Business, Administration and Law","Business, Administration and Law","Business, Administration and Law","Construction, Planning and the Built Environment","Construction, Planning and the Built Environment","Construction, Planning and the Built Environment","Education and Training","Education and Training","Education and Training","Engineering and Manufacturing Technologies","Engineering and Manufacturing Technologies","Engineering and Manufacturing Technologies","Health, Public Services and Care","Health, Public Services and Care","Health, Public Services and Care","Information and Communication Technology","Information and Communication Technology","Information and Communication Technology","Leisure, Travel and Tourism","Leisure, Travel and Tourism","Leisure, Travel and Tourism","Retail and Commercial Enterprise","Retail and Commercial Enterprise","Retail and Commercial Enterprise","Science and Mathematics","Science and Mathematics","Science and Mathematics"],["19-24","25+","Under 19","19-24","25+","Under 19","19-24","25+","Under 19","19-24","25+","Under 19","19-24","25+","Under 19","19-24","25+","Under 19","19-24","25+","Under 19","19-24","25+","Under 19","19-24","25+","Under 19","19-24","25+","Under 19","19-24","25+","Under 19"],[2080,1658,2911,455,220,321,33511,65030,20105,7629,3875,11029,1868,4020,1221,20564,15302,24102,24618,58414,14683,9011,7433,4667,2415,1569,3232,13808,22091,15404,45,62,22]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>SSA.T1<\/th>\n      <th>Age<\/th>\n      <th>sum_of_starts<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":3},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-83b65bed100637d43d0a" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-83b65bed100637d43d0a">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33"],["Agriculture, Horticulture and Animal Care","Agriculture, Horticulture and Animal Care","Agriculture, Horticulture and Animal Care","Arts, Media and Publishing","Arts, Media and Publishing","Arts, Media and Publishing","Business, Administration and Law","Business, Administration and Law","Business, Administration and Law","Construction, Planning and the Built Environment","Construction, Planning and the Built Environment","Construction, Planning and the Built Environment","Education and Training","Education and Training","Education and Training","Engineering and Manufacturing Technologies","Engineering and Manufacturing Technologies","Engineering and Manufacturing Technologies","Health, Public Services and Care","Health, Public Services and Care","Health, Public Services and Care","Information and Communication Technology","Information and Communication Technology","Information and Communication Technology","Leisure, Travel and Tourism","Leisure, Travel and Tourism","Leisure, Travel and Tourism","Retail and Commercial Enterprise","Retail and Commercial Enterprise","Retail and Commercial Enterprise","Science and Mathematics","Science and Mathematics","Science and Mathematics"],["19-24","25+","Under 19","19-24","25+","Under 19","19-24","25+","Under 19","19-24","25+","Under 19","19-24","25+","Under 19","19-24","25+","Under 19","19-24","25+","Under 19","19-24","25+","Under 19","19-24","25+","Under 19","19-24","25+","Under 19","19-24","25+","Under 19"],[2080,1658,2911,455,220,321,33511,65030,20105,7629,3875,11029,1868,4020,1221,20564,15302,24102,24618,58414,14683,9011,7433,4667,2415,1569,3232,13808,22091,15404,45,62,22]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>SSA.T1<\/th>\n      <th>Age<\/th>\n      <th>sum_of_starts<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":3},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 
 ---
 # ggplots
@@ -362,9 +360,7 @@ lvl_and_age %&gt;%
 ]
 
 ---
-
 ![](xaringan-teach_files/figure-html/ggplot-colour-1.png)&lt;!-- --&gt;
-
 
 
 And once we have beautiful charts nestled in, we can directly reference the data in our text. For instance, this data (taken from the [November FE and Skills release](https://www.gov.uk/government/statistics/further-education-and-skills-november-2019)) shows that the largest group of people starting apprenticeships are 25 or over with 179674 starts. Conversely, the smallest group are people aged 18 or less with 97697 starts
@@ -372,8 +368,8 @@ And once we have beautiful charts nestled in, we can directly reference the data
 ---
 ##  Maps - xaringan also allows the integration of maps. 
 
-<div id="htmlwidget-13d4d11526ef83e314b9" style="width:504px;height:504px;" class="leaflet html-widget"></div>
-<script type="application/json" data-for="htmlwidget-13d4d11526ef83e314b9">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]}],"setView":[[51.4975684,-0.1306512],20,[]]},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-c196d0c4580c7e0eba57" style="width:504px;height:504px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c196d0c4580c7e0eba57">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]}],"setView":[[51.4975684,-0.1306512],20,[]]},"evals":[],"jsHooks":[]}</script>
 
 ---
 # Making maps
