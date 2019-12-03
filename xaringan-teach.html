@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>How to make Xaringan presentations</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="David Sands" />
+    <meta name="date" content="2019-12-03" />
+    <link href="xaringan-teach_files/remark-css/default.css" rel="stylesheet" />
+    <link href="xaringan-teach_files/remark-css/default-fonts.css" rel="stylesheet" />
+    <script src="xaringan-teach_files/htmlwidgets/htmlwidgets.js"></script>
+    <script src="xaringan-teach_files/jquery/jquery.min.js"></script>
+    <link href="xaringan-teach_files/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
+    <script src="xaringan-teach_files/datatables-binding/datatables.js"></script>
+    <link href="xaringan-teach_files/dt-core/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="xaringan-teach_files/dt-core/css/jquery.dataTables.extra.css" rel="stylesheet" />
+    <script src="xaringan-teach_files/dt-core/js/jquery.dataTables.min.js"></script>
+    <link href="xaringan-teach_files/crosstalk/css/crosstalk.css" rel="stylesheet" />
+    <script src="xaringan-teach_files/crosstalk/js/crosstalk.min.js"></script>
+    <link href="xaringan-teach_files/leaflet/leaflet.css" rel="stylesheet" />
+    <script src="xaringan-teach_files/leaflet/leaflet.js"></script>
+    <link href="xaringan-teach_files/leafletfix/leafletfix.css" rel="stylesheet" />
+    <script src="xaringan-teach_files/Proj4Leaflet/proj4-compressed.js"></script>
+    <script src="xaringan-teach_files/Proj4Leaflet/proj4leaflet.js"></script>
+    <link href="xaringan-teach_files/rstudio_leaflet/rstudio_leaflet.css" rel="stylesheet" />
+    <script src="xaringan-teach_files/leaflet-binding/leaflet.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# How to make Xaringan presentations
+### David Sands
+### 2019-12-03
+
+---
+
+
+
+
+
+#  Xaringan Topics
+
+In this talk I will show:
+
+ 1. What xaringan is
+ 2. Why it is useful
+ 3. Useful prerequisites (R and Markdown)
+
+--
+ 4. How to make a slide
+ 5. How to make incremental reveals
+ 6. How to add pictures
+ 7. How to present data
+
+--
+ 8. Data Tables
+ 9. ggplots
+ 10. Maps
+ 11. Themes
+ 12. Conclusion
+ 
+---
+ 
+# What is Xaringan?
+
+Xari-what? [xaringan](https://github.com/yihui/xaringan) is 
+
+&gt; An R package for creating HTML5 presentations with remark.js through R Markdown.
+
+It offers all the capabilities of an R Markdown document in a power-point format. You can present analysed data, present said results, create charts, and show maps in a xaringan presentation. Or, a nice way to show data in a [RAP](https://ukgovdatascience.github.io/rap_companion/) format.
+
+### How is this different from an R presentation?
+
+In R Studio, you can create an `R Presentation` file to present your analysis in a presentation. 
+
+The difference between this and xaringan is that _xari_ is an order of magnitude more prettier. If these were cars, R Presentation would be a [Reliant Robin](https://www.youtube.com/watch?v=DRGuMKVqNzA), whilst xaringan would be a classic Mini. They do the same job, but one does it with more style and _elan_ than the other. 
+
+This session will then focus on how you can build a xaringan presentation to show your work off. 
+
+---
+
+# What is remark.js?
+
+&gt; A simple, in-browser, markdown-driven slideshow tool targeted at people who know their way around HTML and CSS
+
+&lt;iframe src="https://remarkjs.com/" width="100%" height="300px"&gt;&lt;/iframe&gt;
+
+Savvy programmers use it to write presentations. Like __you__ at the end of this one!
+
+---
+
+# Why should I learn this?
+
+ 1. You keep your workflow in R. Instead of juggling RStudio and PowerPoint, you can bring your entire workflow into RStudio. 
+ 
+ 2. You can version control it via Git. This allows easy and auditable sharing via Github for external audiences, or Azure DevOps for internal contacts
+ 
+ 3. It looks good. Phrased differently, it's _fashionable._
+ 
+&gt; Fashion is not something that exists in dresses only. Fashion is in the sky, in the street, fashion has to do with ideas, the way we live, what is happening.[1]
+
+.footnote[
+[1] Coco Chanel
+]
+
+???
+
+You keep your workflow in R, stopping you from juggling multiple software to analyse and present a piece of work
+
+I talked previously about how Git makes your work more auditable and reproducible. By VCing your presentation as well, you can extend that oversight and control to it as well. 
+---
+
+# Previous work
+
+I have previously used xaringan to talk about:
+
+.pull-left[
+**The Psychology of Performance**
+
+&lt;iframe src="https://psysandsy.github.io/psy-of-perform.html" width="100%" height="300px"&gt;&lt;/iframe&gt;
+]
+
+.pull-right[
+and the **Boons of R and Git**
+
+&lt;iframe src="https://psysandsy.github.io/boons-r-git.html" width="100%" height="300px"&gt;&lt;/iframe&gt;
+
+]
+
+The source code of which can be found [here](https://github.com/PsySandsy/psysandsy.github.io).
+
+---
+
+# Prerequisites
+
+Before we venture further however, it's crucial to point out that operating this package requires intermediate knowledge of both R and RMarkdown. 
+
+Now, if you don't know R that well but want to, go through this online [DfE R training book](https://dfe-analytical-services.github.io/r-training-course/). 
+
+&lt;iframe src="https://dfe-analytical-services.github.io/r-training-course/" width="100%" height="375px"&gt;&lt;/iframe&gt;
+
+---
+
+Whilst for RMarkdowns, [Dr Dray](https://github.com/matt-dray)'s [Knitting Club](https://www.rostrum.blog/2018/09/24/knitting-club/) will stitch your knowledge up to a _whool_ new level. 
+
+&lt;iframe src="https://www.rostrum.blog/2018/09/24/knitting-club/" width="100%" height="400px"&gt;&lt;/iframe&gt;
+
+---
+
+# Analytics Academy 
+
+If you can't be bothered reading, then that's no bother . The [Winklevoss](mailto:Jack.TATTERSALL@education.gov.uk) [twins](mailto:James.LOWE@education.gov.uk) have recorded _a lot_ of videos to learn R on their [Analytics Academy](https://educationgovuk.sharepoint.com/sites/DAN/Data Science/The Analytics Academy - An R training course.aspx) page. Pay it visit, and maybe you'll figure out who I'm talking about!
+
+---
+
+# How to make a slide
+
+It's time to make our own xaringan file. 
+
+First, create a new R Markdown file. Then go to the YAML header at the top of the document and change:
+
+
+```r
+---
+output: html_document
+---
+```
+
+to 
+
+
+```r
+---
+*output: xaringan::moon_reader
+---
+```
+
+---
+
+# How to make a slide
+
+Now let's start making slides. Type 3 dashes in a row to make a new slide: ---
+
+```
+---
+# How to make a slide
+```
+
+Then start spreading dat information. 
+
+---
+
+# How to make incremental reveals
+
+If you want incremental reveals to break up the presentation of your text - or to add a 'lil bit of suspense - type 2 dashes in a row: --
+
+.pull-left[
+
+```
+Hello  
+
+--
+
+is it me you're looking for?
+
+--
+
+I can see it in your eyes
+
+```
+
+]
+
+--
+
+.pull-right[
+
+Hello  
+{{content}}
+
+]
+
+--
+
+is it me you're looking for?
+{{content}}
+
+--
+
+I can see it in your eyes
+{{content}}
+
+---
+# How to add pictures
+
+.pull-left[
+
+To add pictures for visual __oomph__, change the src to the url of the picture you want to add. Or if you want to add pictures on your machine, save them in a `images/` folder, and then reference them in the src. E.g. `"images/01.png"`
+
+
+```r
+&lt;img src = 
+"https://user-images.
+githubusercontent.com/
+163582/ 
+45438104-ea200600-b67b-11e8- 
+80fa-d9f2a99a03b0.png"
+&gt;
+```
+
+]
+
+.pull-right[
+&lt;img src = "https://user-images.githubusercontent.com/163582/45438104-ea200600-b67b-11e8-80fa-d9f2a99a03b0.png"&gt;
+]
+
+---
+
+# How to present data
+
+Now that you can write content, let's start presenting some data. 
+
+We could - for example - use a static kable for small or summary data:
+
+
+
+
+```r
+knitr::kable(lvl_and_age, format = "html")
+```
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Level &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Age &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; sum_of_starts &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Advanced Apprenticeship &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 19-24 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 56146 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Advanced Apprenticeship &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 25+ &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 79429 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Advanced Apprenticeship &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Under 19 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 39152 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Higher Apprenticeship &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 19-24 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 20367 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Higher Apprenticeship &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 25+ &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 50698 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Higher Apprenticeship &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Under 19 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3993 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Intermediate Apprenticeship &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 19-24 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 39491 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Intermediate Apprenticeship &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 25+ &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 49547 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Intermediate Apprenticeship &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Under 19 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 54552 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+# Data Tables
+
+Alternatively, if you want your users to interact with a table of your data, use a `Data Table`:
+
+```
+{r}
+library(DT)
+datatable(data)
+```
+---
+
+<div id="htmlwidget-995a69bb21e464c51768" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-995a69bb21e464c51768">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33"],["Agriculture, Horticulture and Animal Care","Agriculture, Horticulture and Animal Care","Agriculture, Horticulture and Animal Care","Arts, Media and Publishing","Arts, Media and Publishing","Arts, Media and Publishing","Business, Administration and Law","Business, Administration and Law","Business, Administration and Law","Construction, Planning and the Built Environment","Construction, Planning and the Built Environment","Construction, Planning and the Built Environment","Education and Training","Education and Training","Education and Training","Engineering and Manufacturing Technologies","Engineering and Manufacturing Technologies","Engineering and Manufacturing Technologies","Health, Public Services and Care","Health, Public Services and Care","Health, Public Services and Care","Information and Communication Technology","Information and Communication Technology","Information and Communication Technology","Leisure, Travel and Tourism","Leisure, Travel and Tourism","Leisure, Travel and Tourism","Retail and Commercial Enterprise","Retail and Commercial Enterprise","Retail and Commercial Enterprise","Science and Mathematics","Science and Mathematics","Science and Mathematics"],["19-24","25+","Under 19","19-24","25+","Under 19","19-24","25+","Under 19","19-24","25+","Under 19","19-24","25+","Under 19","19-24","25+","Under 19","19-24","25+","Under 19","19-24","25+","Under 19","19-24","25+","Under 19","19-24","25+","Under 19","19-24","25+","Under 19"],[2080,1658,2911,455,220,321,33511,65030,20105,7629,3875,11029,1868,4020,1221,20564,15302,24102,24618,58414,14683,9011,7433,4667,2415,1569,3232,13808,22091,15404,45,62,22]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>SSA.T1<\/th>\n      <th>Age<\/th>\n      <th>sum_of_starts<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":3},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+
+---
+# ggplots
+
+.pull-left[
+
+```r
+library(ggplot2)
+lvl_and_age %&gt;% 
+  ggplot2::ggplot(mapping = 
+  aes(Level, sum_of_starts)) + 
+  geom_col()
+```
+
+]
+
+.pull-right[
+&lt;img src="xaringan-teach_files/figure-html/unnamed-chunk-10-1.png" width="504" /&gt;
+]
+
+---
+
+![](xaringan-teach_files/figure-html/ggplot-colour-1.png)&lt;!-- --&gt;
+
+
+
+And once we have beautiful charts nestled in, we can directly reference the data in our text. For instance, this data (taken from the [November FE and Skills release](https://www.gov.uk/government/statistics/further-education-and-skills-november-2019)) shows that the largest group of people starting apprenticeships are 25 or over with 179674 starts. Conversely, the smallest group are people aged 18 or less with 97697 starts
+
+---
+##  Maps - xaringan also allows the integration of maps. 
+
+<div id="htmlwidget-13d4d11526ef83e314b9" style="width:504px;height:504px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-13d4d11526ef83e314b9">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]}],"setView":[[51.4975684,-0.1306512],20,[]]},"evals":[],"jsHooks":[]}</script>
+
+---
+# Making maps
+
+Not only are maps pretty, but can be integrated with shape maps and coordinates to present geographical data. You can present values per regions, results of schools within cities, or the capacity of FE providers in opportunity areas. 
+
+Here's the code to create a map set on the Department for Education you saw in the last slide:
+
+```
+{r}
+library(leaflet)
+leaflet() %&gt;% addTiles() 
+%&gt;% setView(lat = 51.4975684, 
+lng = -0.1306512, zoom = 20) 
+```
+
+---
+# Themes
+
+When you knit your xaringan document, you create an HTML file. Any HTML content can be styled using [Cascading Style Sheets (CSS)](9https://en.wikipedia.org/wiki/Cascading_Style_Sheets) - the styling language used to make websites _funky._
+
+'tis the same with xaringan. Once you get good at CSS, you can create your own style of xaringan presentations. A few ones of note are:
+
+ * [R Ladies comin' thru with a theme Prince would dig](https://alison.rbind.io/post/2017-12-18-r-ladies-presentation-ninja/)
+ 
+ * [Prolific analyst Matt Dray made a GDS theme](https://github.com/matt-dray/gdstheme)
+
+Plus, I saw CAU used a lovely design for one of their presentations I saw (may have been a Data Science one). If anyone there is inspired by this talk, you can create a xaringan theme using your power point style! 
+
+---
+
+# Conclusion
+
+The benefits of xaringan are almost like the benefits of Data Science itself: it looks dazzling and makes analysis easier. In our case, you can craft a presentation to look good and use styling your organisation uses. And as the whole presentation is written in R, you can incorporate all the analysis you did in R into here -  making the write-up of your analysis easier and inducing a RAP into the presentation stage of your work. 
+
+---
+
+# Other resources
+
+ * [Xaringan introduction in `R Markdown: The Definitive Guide`](https://bookdown.org/yihui/rmarkdown/xaringan.html)
+ 
+ * [Remark JS website](https://remarkjs.com/)
+ 
+ * [A more exhaustive presentation explaining how to create a xaringan](https://yongfu.name/slides/xaringan/xaringan.pdf)
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

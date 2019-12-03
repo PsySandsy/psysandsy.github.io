@@ -1,0 +1,374 @@
+---
+title: "How to make Xaringan presentations"
+author: "David Sands"
+date: "`r Sys.Date()`"
+output: 
+  xaringan::moon_reader:
+    nature:
+      highlightStyle: github 
+      highlightLines: true
+---
+
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+```
+
+#  Xaringan Topics
+
+In this talk I will show:
+
+ 1. What xaringan is
+ 2. Why it is useful
+ 3. Useful prerequisites (R and Markdown)
+
+--
+ 4. How to make a slide
+ 5. How to make incremental reveals
+ 6. How to add pictures
+ 7. How to present data
+
+--
+ 8. Data Tables
+ 9. ggplots
+ 10. Maps
+ 11. Themes
+ 12. Conclusion
+ 
+---
+ 
+# What is Xaringan?
+
+Xari-what? [xaringan](https://github.com/yihui/xaringan) is 
+
+> An R package for creating HTML5 presentations with remark.js through R Markdown.
+
+It offers all the capabilities of an R Markdown document in a power-point format. You can present analysed data, present said results, create charts, and show maps in a xaringan presentation. Or, a nice way to show data in a [RAP](https://ukgovdatascience.github.io/rap_companion/) format.
+
+### How is this different from an R presentation?
+
+In R Studio, you can create an `R Presentation` file to present your analysis in a presentation. 
+
+The difference between this and xaringan is that _xari_ is an order of magnitude more prettier. If these were cars, R Presentation would be a [Reliant Robin](https://www.youtube.com/watch?v=DRGuMKVqNzA), whilst xaringan would be a classic Mini. They do the same job, but one does it with more style and _elan_ than the other. 
+
+This session will then focus on how you can build a xaringan presentation to show your work off. 
+
+---
+
+# What is remark.js?
+
+> A simple, in-browser, markdown-driven slideshow tool targeted at people who know their way around HTML and CSS
+
+```{r echo = FALSE}
+knitr::include_url("https://remarkjs.com/", height = "300px")
+```
+
+Savvy programmers use it to write presentations. Like __you__ at the end of this one!
+
+---
+
+# Why should I learn this?
+
+ 1. You keep your workflow in R. Instead of juggling RStudio and PowerPoint, you can bring your entire workflow into RStudio. 
+ 
+ 2. You can version control it via Git. This allows easy and auditable sharing via Github for external audiences, or Azure DevOps for internal contacts
+ 
+ 3. It looks good. Phrased differently, it's _fashionable._
+ 
+> Fashion is not something that exists in dresses only. Fashion is in the sky, in the street, fashion has to do with ideas, the way we live, what is happening.[1]
+
+.footnote[
+[1] Coco Chanel
+]
+
+???
+
+You keep your workflow in R, stopping you from juggling multiple software to analyse and present a piece of work
+
+I talked previously about how Git makes your work more auditable and reproducible. By VCing your presentation as well, you can extend that oversight and control to it as well. 
+---
+
+# Previous work
+
+I have previously used xaringan to talk about:
+
+.pull-left[
+**The Psychology of Performance**
+
+```{r echo = FALSE}
+knitr::include_url("https://psysandsy.github.io/psy-of-perform.html", height = "300px")
+```
+]
+
+.pull-right[
+and the **Boons of R and Git**
+
+```{r echo = FALSE}
+knitr::include_url("https://psysandsy.github.io/boons-r-git.html", height = "300px")
+```
+
+]
+
+The source code of which can be found [here](https://github.com/PsySandsy/psysandsy.github.io).
+
+---
+
+# Prerequisites
+
+Before we venture further however, it's crucial to point out that operating this package requires intermediate knowledge of both R and RMarkdown. 
+
+Now, if you don't know R that well but want to, go through this online [DfE R training book](https://dfe-analytical-services.github.io/r-training-course/). 
+
+```{r echo = FALSE}
+knitr::include_url("https://dfe-analytical-services.github.io/r-training-course/", height = "375px")
+```
+
+---
+
+Whilst for RMarkdowns, [Dr Dray](https://github.com/matt-dray)'s [Knitting Club](https://www.rostrum.blog/2018/09/24/knitting-club/) will stitch your knowledge up to a _whool_ new level. 
+
+```{r echo = FALSE}
+knitr::include_url("https://www.rostrum.blog/2018/09/24/knitting-club/", height = "400px")
+```
+
+---
+
+# Analytics Academy 
+
+If you can't be bothered reading, then that's no bother . The [Winklevoss](mailto:Jack.TATTERSALL@education.gov.uk) [twins](mailto:James.LOWE@education.gov.uk) have recorded _a lot_ of videos to learn R on their [Analytics Academy](https://educationgovuk.sharepoint.com/sites/DAN/Data Science/The Analytics Academy - An R training course.aspx) page. Pay it visit, and maybe you'll figure out who I'm talking about!
+
+---
+
+# How to make a slide
+
+It's time to make our own xaringan file. 
+
+First, create a new R Markdown file. Then go to the YAML header at the top of the document and change:
+
+```{r eval = FALSE}
+---
+output: html_document
+---
+```
+
+to 
+
+```{r eval = FALSE}
+---
+output: xaringan::moon_reader #<<
+---
+```
+
+---
+
+# How to make a slide
+
+Now let's start making slides. Type 3 dashes in a row to make a new slide: ---
+
+```
+---
+# How to make a slide
+```
+
+Then start spreading dat information. 
+
+---
+
+# How to make incremental reveals
+
+If you want incremental reveals to break up the presentation of your text - or to add a 'lil bit of suspense - type 2 dashes in a row: --
+
+.pull-left[
+
+```
+Hello  
+
+--
+
+is it me you're looking for?
+
+--
+
+I can see it in your eyes
+
+```
+
+]
+
+--
+
+.pull-right[
+
+Hello  
+{{content}}
+
+]
+
+--
+
+is it me you're looking for?
+{{content}}
+
+--
+
+I can see it in your eyes
+{{content}}
+
+---
+# How to add pictures
+
+.pull-left[
+
+To add pictures for visual __oomph__, change the src to the url of the picture you want to add. Or if you want to add pictures on your machine, save them in a `images/` folder, and then reference them in the src. E.g. `"images/01.png"`
+
+```{r eval = FALSE}
+<img src = 
+"https://user-images.
+githubusercontent.com/
+163582/ 
+45438104-ea200600-b67b-11e8- 
+80fa-d9f2a99a03b0.png"
+>
+```
+
+]
+
+.pull-right[
+<img src = "https://user-images.githubusercontent.com/163582/45438104-ea200600-b67b-11e8-80fa-d9f2a99a03b0.png">
+]
+
+---
+
+# How to present data
+
+Now that you can write content, let's start presenting some data. 
+
+We could - for example - use a static kable for small or summary data:
+
+```{r echo = FALSE}
+library(dplyr)
+
+app_starts <- read.csv("data/Underlying_data_Apps_Starts.csv")
+
+lvl_and_age <- app_starts %>% select(Level, Age, Starts) %>% 
+  group_by(Level, Age) %>% summarise(sum_of_starts = sum(Starts))
+ssat1_and_age <- app_starts %>% select(`SSA.T1`, Age, Starts) %>% 
+  group_by(`SSA.T1`, Age) %>% summarise(sum_of_starts = sum(Starts))
+```
+
+```{r kable}
+knitr::kable(lvl_and_age, format = "html")
+```
+
+---
+
+# Data Tables
+
+Alternatively, if you want your users to interact with a table of your data, use a `Data Table`:
+
+```
+{r}
+library(DT)
+datatable(data)
+```
+---
+
+```{r data-table, echo = FALSE}
+library(DT)
+datatable(ssat1_and_age)
+```
+
+---
+# ggplots
+
+.pull-left[
+```{r ggplot-basic, fig.show='hide'}
+library(ggplot2)
+lvl_and_age %>% 
+  ggplot2::ggplot(mapping = 
+  aes(Level, sum_of_starts)) + 
+  geom_col()
+```
+
+]
+
+.pull-right[
+```{r ref.label = 'ggplot-basic', echo = FALSE, fig.retina = 6}
+```
+]
+
+---
+
+```{r ggplot-colour, echo=FALSE}
+lvl_and_age %>% 
+  ggplot2::ggplot(mapping = 
+    aes(Level, sum_of_starts, 
+    fill = Age)) + 
+  geom_col()
+```
+
+```{r app-figures,echo=FALSE}
+age_starts <- app_starts %>% select(Age, Starts) %>% 
+  group_by(Age) %>% summarise(sum_of_starts = sum(Starts)) 
+```
+
+And once we have beautiful charts nestled in, we can directly reference the data in our text. For instance, this data (taken from the [November FE and Skills release](https://www.gov.uk/government/statistics/further-education-and-skills-november-2019)) shows that the largest group of people starting apprenticeships are 25 or over with `r pull(age_starts %>% filter(Age == "25+"))` starts. Conversely, the smallest group are people aged 18 or less with `r pull(age_starts %>% filter(Age == "Under 19"))` starts
+
+---
+##  Maps - xaringan also allows the integration of maps. 
+
+```{r echo=FALSE, fig.align='right'}
+library(leaflet)
+leaflet() %>% addTiles() %>% setView(lat = 51.4975684, lng = -0.1306512, zoom = 20) 
+```
+
+---
+# Making maps
+
+Not only are maps pretty, but can be integrated with shape maps and coordinates to present geographical data. You can present values per regions, results of schools within cities, or the capacity of FE providers in opportunity areas. 
+
+Here's the code to create a map set on the Department for Education you saw in the last slide:
+
+```
+{r}
+library(leaflet)
+leaflet() %>% addTiles() 
+%>% setView(lat = 51.4975684, 
+lng = -0.1306512, zoom = 20) 
+```
+
+---
+# Themes
+
+When you knit your xaringan document, you create an HTML file. Any HTML content can be styled using [Cascading Style Sheets (CSS)](9https://en.wikipedia.org/wiki/Cascading_Style_Sheets) - the styling language used to make websites _funky._
+
+'tis the same with xaringan. Once you get good at CSS, you can create your own style of xaringan presentations. A few ones of note are:
+
+ * [R Ladies comin' thru with a theme Prince would dig](https://alison.rbind.io/post/2017-12-18-r-ladies-presentation-ninja/)
+ 
+ * [Prolific analyst Matt Dray made a GDS theme](https://github.com/matt-dray/gdstheme)
+
+Plus, I saw CAU used a lovely design for one of their presentations I saw (may have been a Data Science one). If anyone there is inspired by this talk, you can create a xaringan theme using your power point style! 
+
+---
+
+# Conclusion
+
+The benefits of xaringan are almost like the benefits of Data Science itself: it looks dazzling and makes analysis easier. In our case, you can craft a presentation to look good and use styling your organisation uses. And as the whole presentation is written in R, you can incorporate all the analysis you did in R into here -  making the write-up of your analysis easier and inducing a RAP into the presentation stage of your work. 
+
+---
+
+# Other resources
+
+ * [Xaringan introduction in `R Markdown: The Definitive Guide`](https://bookdown.org/yihui/rmarkdown/xaringan.html)
+ 
+ * [Remark JS website](https://remarkjs.com/)
+ 
+ * [A more exhaustive presentation explaining how to create a xaringan](https://yongfu.name/slides/xaringan/xaringan.pdf)
+
+
+
+
+
+
