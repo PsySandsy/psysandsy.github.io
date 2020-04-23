@@ -1,5 +1,5 @@
 ---
-title: "The Psychology of Performance"
+pagetitle: "The Psychology of Performance"
 subtitle: "Advice on enhancing and maintaining performance"
 author: "David Sands"
 date: "`r Sys.Date()`" 
@@ -37,7 +37,7 @@ I was so enthralled by this chapter, I decided to summarise it here. With the fa
 # Individual Factors Determining Performance 
 
 ```{r indiv-table, echo=FALSE}
-indiv_table <- data.frame(FACTOR = c("Mindset", "Optimal Mindsets", "Effective Coping Strategies", "Goal Setting", "Relaxation and Meditation", "Imagery and Self-Talk"), DETAIL = c("A growth mindset outperforms a fixed mindset. Folks with this mindset focus on learning, their invested effort will lead to success, and they embrace their mistakes. Details of this minset shall be explored later.", "Optimal mindset is one in which you achieve FLOW. To increase the likelihood of experiencing this, you motivate yourself to perform well, achieve an optimal physiological arousal level prior to performance, and have a strong focus", "Handle pressure of situation by reinterpreting it. More detail is given later.", "Set SMART goals to guide performance and change behavior if performance is dipping.", "Enhances well-being and handles stress. You can also use this as a coping strategy.", "Pre-imaging situations is conducive to performance in those situations."))
+indiv_table <- data.frame(FACTOR = c("Mindset", "Optimal Mindsets", "Effective Coping Strategies", "Goal Setting", "Relaxation and Meditation", "Imagery and Self-Talk"), DETAIL = c("A growth mindset outperforms a fixed mindset. Folks with this mindset focus on learning, their invested effort will lead to success, and they embrace their mistakes.", "Optimal mindset is one in which you achieve FLOW. To increase the likelihood of experiencing this, you motivate yourself to perform well, achieve an optimal physiological arousal level prior to performance, and have a strong focus", "Handle pressure of situation by reinterpreting it. More detail is given later.", "Set SMART goals to guide performance and change behavior if performance is dipping.", "Enhances well-being and handles stress. You can also use this as a coping strategy.", "Pre-imaging situations is conducive to performance in those situations."))
 
 knitr::kable(indiv_table, format = "html")
 ```
