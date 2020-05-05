@@ -1,15 +1,22 @@
 ---
 pagetitle: "The Psychology of Performance"
 subtitle: "Advice on enhancing and maintaining performance"
-author: "David Sands"
-date: "`r Sys.Date()`" 
 output: 
   xaringan::moon_reader:
+    css: ["default", "styles/custom.css", "styles/custom-fonts.css"]
     nature:
       highlightStyle: github 
       highlightLines: true
+      countIncrementalSlides: false
 ---
 
+class: center, middle, inverse
+
+# The Psychology of Performance
+
+By David Sands
+
+19/05/2020
 
 <!-- Example of a comment -->
 
@@ -18,6 +25,7 @@ options(htmltools.dir.version = FALSE)
 knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 ```
 
+---
 # Introduction
 
 The book [The Psychology of Performance](https://www.routledge.com/The-Psychology-of-Performance-1st-Edition/Cotterill/p/book/9781138219205) by Stewart T Cotterill explores
