@@ -1,0 +1,75 @@
+---
+pagetitle: "Roxygen talk"
+output: 
+  xaringan::moon_reader:
+    css: ["default", "styles/custom.css", "styles/custom-fonts.css"]
+    nature:
+      highlightStyle: github 
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+class: center, middle, inverse
+
+# **(GASP)** I need Roxygen!
+
+## How to use Roxygen2 to write documentation for your R functions
+
+By David Sands
+
+2020/05/20
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+```
+
+---
+# Introduction
+
+I will show you:
+
+  * Set up Roxygen in your R Projects
+
+--
+  * Write documentation for your functions
+
+--
+  * Generate Rd files to share the documentation you wrote
+
+--
+
+> The premise of roxygen2 is simple: describe your functions in comments next to their definitions and roxygen2 will process your source code and comments to automatically generate documentation files for your functions.
+
+.footnote[[Source](https://roxygen2.r-lib.org/)]
+
+---
+
+# Individual Factors Determining Performance 
+
+```{r indiv-table, echo=FALSE}
+indiv_table <- data.frame(FACTOR = c("Mindset", "Optimal Mindsets", "Effective Coping Strategies", "Goal Setting", "Relaxation and Meditation", "Imagery and Self-Talk"), DETAIL = c("A growth mindset outperforms a fixed mindset. Folks with this mindset focus on learning, their invested effort will lead to success, and they embrace their mistakes.", "Optimal mindset is one in which you achieve FLOW. To increase the likelihood of experiencing this, you motivate yourself to perform well, achieve an optimal physiological arousal level prior to performance, and have a strong focus", "Handle pressure of situation by reinterpreting it. More detail is given later.", "Set SMART goals to guide performance and change behavior if performance is dipping.", "Enhances well-being and handles stress. You can also use this as a coping strategy.", "Pre-imaging situations is conducive to performance in those situations."))
+
+knitr::kable(indiv_table, format = "html")
+```
+
+---
+name: psy-skills
+class: left, top
+
+# Psychological skills to facilitate performance
+
+Many of these individual factors are called [Psychological skills](https://www.bodybuilding.com/fun/psychological-skills-training.htm). These are cognitive skills designed to enhance performance outcomes, increase enjoyment, and enhance satisfaction. The main ones to develop are:
+
+--
+
+ 1. Goal-setting
+ 2. Relaxation and Meditation
+ 3. Imagery
+ 4. Self-talk
+ 5. Pre-performance rituals
+
+--
+
+Not too sure how to develop them? Have no fear, I'll show you how in the next few slides...
+

@@ -42,7 +42,7 @@ I was so enthralled by this chapter, I decided to summarise it here. With the fa
 
 ---
 
-# Individual Factors Determining Performance 
+# Individual Factors
 
 ```{r indiv-table, echo=FALSE}
 indiv_table <- data.frame(FACTOR = c("Mindset", "Optimal Mindsets", "Effective Coping Strategies", "Goal Setting", "Relaxation and Meditation", "Imagery and Self-Talk"), DETAIL = c("A growth mindset outperforms a fixed mindset. Folks with this mindset focus on learning, their invested effort will lead to success, and they embrace their mistakes.", "Optimal mindset is one in which you achieve FLOW. To increase the likelihood of experiencing this, you motivate yourself to perform well, achieve an optimal physiological arousal level prior to performance, and have a strong focus", "Handle pressure of situation by reinterpreting it. More detail is given later.", "Set SMART goals to guide performance and change behavior if performance is dipping.", "Enhances well-being and handles stress. You can also use this as a coping strategy.", "Pre-imaging situations is conducive to performance in those situations."))
@@ -94,6 +94,8 @@ background-size: cover
 We spend a third of a day - every day - sleeping. I.E. **resting**. The importance of rest is hard-coded into our body clock. 
 
 If our bodies need consistent rest, so do we when we're performing. Thankfully, both relexation and meditation provide such rest:
+
+--
 
 .pull-left[
 **Relaxation and meditation:** two types, ‘muscle to mind’ (involving breathing exercises and muscular relaxation approach) and ‘mind to muscle’ (meditation and autogenic training). Both aim to decrease oxygen consumption, reduce heart rate & respiration, and provide controlled focus of attention. Can be devloped in meditation groups, or by using meditation apps like [Calm](https://www.calm.com/) or [Headspace](https://www.headspace.com/).
@@ -227,27 +229,27 @@ In the first one here, we talk about the specific mindset you bring to situation
 
 --
 
-Developing a *growth mindset* is better in the long run
+  1. Developing a *growth mindset* is better in the long run
 
 --
 
-Effort is key to future success. The more you put in, the more you _generally_ get out. 
+  2. Effort is key to future success. The more you put in, the more you _generally_ get out. 
 
 --
 
-If you know your mindset when you perform well, you can take steps to achieve that mindset more often. 
+  3. If you know your mindset when you perform well, you can take steps to achieve that mindset more often. 
 
 --
 
-Stay mentally sharp by having a healthy diet and good hydration. Eat your fruit and vegetables; keep red meat fast food, and alcohol to a minimum; drink lots of tea and water etc. 
+  4. Stay mentally sharp by having a healthy diet and good hydration. Eat your fruit and vegetables; keep red meat fast food, and alcohol to a minimum; drink lots of tea and water etc. 
 
 --
 
-Psychological skills help performance (goal-setting, imagery, relaxation etc). The more you practice them, the better they become
+  5. Psychological skills help performance (goal-setting, imagery, relaxation etc). The more you practice them, the better they become
 
 ---
 
-# Practical psychological strategies to enhance performance
+# Practical tips to enhance performance
 
 Whilst in this second and last one, if you want ten pithy rules to slap on your wall for enhanced performance, *viola*:
 
@@ -256,9 +258,13 @@ Whilst in this second and last one, if you want ten pithy rules to slap on your 
  1. Become an optimist, rather than a pessimist
  2. Practice and performance are positively related - more you put in, more you’ll get out
  3. Replicate what you do when things go well
+
+--
  4. Treat good quality sleep as vital.
  5. Set SMART goals
  6. Develop relaxation and mindfulness skills
+
+--
  7. Make self-talk positive and supportive
  8. Develop a routine for pre-performance - it gives you something to think about and blocks any unwanted thoughts.
  9. In teams, make sure everyone knows what they’re doing, and that everyone has the same understanding
