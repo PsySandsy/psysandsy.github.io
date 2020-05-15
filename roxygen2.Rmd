@@ -69,7 +69,7 @@ First, let me give you a lovely example of using `roxygen2`. Recently, I wrote R
 
 With this code, I wrote a couple of functions that perform the QA checks we wanted. But I wanted create documentation for these functions so that other people in my unit (and in the futurue other people in my divison who use this). 
 
-I 
+I decided to give Roxygen a go, and was very happy with how it went. Come with me and I'll show you how I got it working...
 
 ---
 name: set-up
@@ -90,7 +90,7 @@ Why?
 
 Because `roxygen2` assumes you're writing an R package. It looks for this `DESCRIPTION` file to find out more info about the R package you're building. 
 
-Now we don't want to write an R package now. But we don't need to tell R that. SO let's trick it...
+Now we don't want to write an R package now. But we don't need to tell R that. Let's trick it...
 
 ---
 background-image: url(https://media.giphy.com/media/AZWxR29rtAj4I/giphy.gif)
@@ -102,7 +102,7 @@ name: desc
 
 So go on ahead, make a `DESCRIPTION` file to trick R into thinking you're writing a package. 
 
-What's that you say...you don't know how to? Well, neither did I when I started using it. I jusy copied someone else's `DESCRIPTION` file. You do the same. Copy my text below and re-write it to whatever you're working on. 
+What's that you say...you don't know how to? Well, neither did I when I started using it. I jusy copied someone else's `DESCRIPTION` file. You do the same. Copy my text below and re-write it to whatever you're working on, then save as `DESCRIPTION`
 
 ```
 Package: eesQA
@@ -121,33 +121,85 @@ BugReports: https://eesQA.bugtracker.url
 RoxygenNote: 7.1.0
 Encoding: UTF-8
 ```
-.footnote["aut" and "cre" mean author and creator respectively]
+???
+
+"aut" and "cre" mean author and creator respectively
 
 ---
 name: writing-function-file
 
 ## How to write documentation
 
-Write the name of your function. 
-Then briefly say 
+First, take the functions you've written and place them in an R file. Put this R file into a folder called `R`. a**RR**ight?
+
+Then above your function code, write in roxygen comment lines. These are lines starting with `#'`. In these place the documentation of your functions. Write:
+
+  1. The name of your function; 
+  2. A description of what it does; 
+  3. @param values - an explanation of the parameters in your function; 
+  4. @return value - what your function returns. Is it a dataframe, a logical value, a funny picture etc?; and,
+  5. A couple of @example values - showing examples of your function in action
+  
+---
+name:example
+
+## Example 
+
+<img src = "images/07.png">
+
+`roxygen2` will then take the comment lines, and convert them into `Rd` files. These are your R Documentation files. 
+
+If you want to copy this code, the raw version is on the next slide.
+
+---
+```
+# 3: SQL comparison ----
+#' Return a SQL query within R
+#' 
+#' This returns the results of a SQL query passed to the query parameter. Use 
+#' the returned dataframe to check if the data in the EES import files matches 
+#' the data either from the DWH-LI, or the DEV-SQL database SQL database
+#' 
+#' @param query A string - the SQL query that generated the EIF data
+#' @param dev_sql Logical - sets the function to connect to either the DWH-LI or DEV-SQL SQL server. DWH-LI is the default
+#' @return A dataframe from \code{query}
+#' @example
+#' sql_compare("SELECT TOP 10 [Year],[Age],[Level],[Starts],[Achievements] FROM DWH_MI.SFR.tDM_Apprenticeship_Start_Ach"))
+
+sql_compare <- function(query, dev_sql = FALSE){
+  require(odbc)
+  require(DBI)
+  
+  if(dev_sql == FALSE){
+    conn1 <- dbConnect(odbc(), .connection_string = "driver={SQL Server}; server=DSCI-PRD-DWH-LI")
+  }
+  else{
+    conn1 <- dbConnect(odbc(), .connection_string = "driver={SQL Server}; server=DSCI-PRD-DEV-SQL")
+  }
+  DBI::dbGetQuery(conn1, query)
+}
+```
+
+---
+name: transform
+
+## Conjure `Rd` files
+
+Now that you've written comments with your functions, we now need to conjure up some R documentation files (as if we're visiting the Witches of Crookback Bog). 
+
+How are we going to do that? Oh easy, just type
+
+`roxygen2::roxygenise()` in the R terminal. 
+
+And like magic, documentation files will be generated in a new `man` directory in your project. One file will be created per function in your function R file. 
+
+.footnote[Please tell me someone got that reference]
 
 ---
 
-```
-|── DESCRIPTION        <- Description of the package you're tricking R with
-|── R
-|   └── functions.R    <- File I wrote my functions in. You can have multiple
-|── man                <- Made when you call `roxygen2::roxygenise()`
-|   |── function-01.Rd      <- Rd file of first function in `functions.R`.
-|   |── function-02.Rd      <- And Rd file of second function.
-|   └── function-03.Rd      <- And file of the third.
-```
+## Comparison
 
-???
-
-Source of code folder format: https://raw.githubusercontent.com/drivendata/cookiecutter-data-science/master/README.md
-
----
+Here's a comparison between your `Rd` file, and what your function documentation looks like when previewed. 
 
 <img src = "images/06.png">
 
@@ -160,5 +212,21 @@ roxy <- create_graph() %>%
   add_node(label = "man Folder", from = 1) %>%
   add_node(label = "Documentation in Help", from = 2)
 
-render_graph(roxy)
+render_graph(roxy, layout = "tree")
 ```
+
+---
+
+```
+|── DESCRIPTION        <- Description of the package you're tricking R with
+|── R
+|   └── functions.R    <- File I wrote my functions in. You can have multiple
+|── man                <- Made when you call roxygen2::roxygenise()
+|   |── function-01.Rd      <- Rd file of first function in functions.R.
+|   |── function-02.Rd      <- And Rd file of second function.
+|   └── function-03.Rd      <- And file of the third.
+```
+
+???
+
+Source of code folder format: https://raw.githubusercontent.com/drivendata/cookiecutter-data-science/master/README.md

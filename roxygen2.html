@@ -3,7 +3,10 @@
   <head>
     <title>Roxygen talk</title>
     <meta charset="utf-8" />
-    <link href="roxygen2_files/remark-css/default.css" rel="stylesheet" />
+    <script src="roxygen2_files/htmlwidgets/htmlwidgets.js"></script>
+    <script src="roxygen2_files/viz/viz.js"></script>
+    <link href="roxygen2_files/DiagrammeR-styles/styles.css" rel="stylesheet" />
+    <script src="roxygen2_files/grViz-binding/grViz.js"></script>
     <link rel="stylesheet" href="styles\custom.css" type="text/css" />
     <link rel="stylesheet" href="styles\custom-fonts.css" type="text/css" />
   </head>
@@ -24,6 +27,7 @@ By David Sands
 
 
 ---
+
 # Introduction
 
 I will show you:
@@ -42,64 +46,185 @@ I will show you:
 
 .footnote[[Source](https://roxygen2.r-lib.org/)]
 
----
+???
 
-# Individual Factors Determining Performance 
-
-&lt;table&gt;
- &lt;thead&gt;
-  &lt;tr&gt;
-   &lt;th style="text-align:left;"&gt; FACTOR &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; DETAIL &lt;/th&gt;
-  &lt;/tr&gt;
- &lt;/thead&gt;
-&lt;tbody&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Mindset &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; A growth mindset outperforms a fixed mindset. Folks with this mindset focus on learning, their invested effort will lead to success, and they embrace their mistakes. &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Optimal Mindsets &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Optimal mindset is one in which you achieve FLOW. To increase the likelihood of experiencing this, you motivate yourself to perform well, achieve an optimal physiological arousal level prior to performance, and have a strong focus &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Effective Coping Strategies &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Handle pressure of situation by reinterpreting it. More detail is given later. &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Goal Setting &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Set SMART goals to guide performance and change behavior if performance is dipping. &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Relaxation and Meditation &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Enhances well-being and handles stress. You can also use this as a coping strategy. &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Imagery and Self-Talk &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Pre-imaging situations is conducive to performance in those situations. &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
+Roxygen allows you to easily document your functions. This is a step-up from commenting your code. As with code documentation, function documentation makes it easier to communicate your work to others, and for them to use your code to help them. 
 
 ---
-name: psy-skills
-class: left, top
+name: what-is-roxygen
 
-# Psychological skills to facilitate performance
+# What is Roxygen?
 
-Many of these individual factors are called [Psychological skills](https://www.bodybuilding.com/fun/psychological-skills-training.htm). These are cognitive skills designed to enhance performance outcomes, increase enjoyment, and enhance satisfaction. The main ones to develop are:
+Roxygen, technically called `roxygen2`, is an R package that generates documentation for your functions. 
 
+With a little bit of setting up, I have found it a smashing way to describe the functions I write in my R work. 
+Even though it is focused on analysts who write R packages, it is still a good habit to start writing documentation for your code **now**. 
+
+This talk will show you how. 
+
+---
+name: demo
+
+# A Lovely Example
+
+First, let me give you a lovely example of using `roxygen2`. Recently, I wrote R code to _automatically_ QA the data we - the Further Education unit - import into Explore Education Statistics, the new service to publish DfE statistics. 
+
+With this code, I wrote a couple of functions that perform the QA checks we wanted. But I wanted create documentation for these functions so that other people in my unit (and in the futurue other people in my divison who use this). 
+
+I decided to give Roxygen a go, and was very happy with how it went. Come with me and I'll show you how I got it working...
+
+---
+name: set-up
+
+## Set roxygen up in your R project
+
+You know the drill by now...anytime you code in R you should [make a project](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects) to keep your work together. Do that now.  
+
+```
+#install.packages("roxygen2")
+library(roxygen2)
+```
 --
 
- 1. Goal-setting
- 2. Relaxation and Meditation
- 3. Imagery
- 4. Self-talk
- 5. Pre-performance rituals
+Then write a `DESCRIPTION` file in your project. 
 
---
+Why?
 
-Not too sure how to develop them? Have no fear, I'll show you how in the next few slides...
+Because `roxygen2` assumes you're writing an R package. It looks for this `DESCRIPTION` file to find out more info about the R package you're building. 
+
+Now we don't want to write an R package now. But we don't need to tell R that. Let's trick it...
+
+---
+background-image: url(https://media.giphy.com/media/AZWxR29rtAj4I/giphy.gif)
+background-size: 100%
+
+---
+name: desc
+## Won't get fooled again
+
+So go on ahead, make a `DESCRIPTION` file to trick R into thinking you're writing a package. 
+
+What's that you say...you don't know how to? Well, neither did I when I started using it. I jusy copied someone else's `DESCRIPTION` file. You do the same. Copy my text below and re-write it to whatever you're working on, then save as `DESCRIPTION`
+
+```
+Package: eesQA
+Version: 0.0.1
+Date: 2020-01-30
+Title: Functions to QA Explore Education Statistics data
+Authors@R: person("David", "Data Scientist", role = c("aut", "cre"),
+                     email = "david.sands@education.gov.uk")
+Author: David Sands [aut, cre]
+Maintainer: David Sands &lt;david.sands@education.gov.uk&gt;
+Depends: R (&gt;= 4.0.0), nlme
+Description: QAs the data within the Department of Education's (DfE) Explore Education Statistics (EES) Import Files (EIF). This ensures the data placed on EES is correct and accurate. 
+License: GPL (&gt;= 2)
+URL: https://www.r-project.org
+BugReports: https://eesQA.bugtracker.url
+RoxygenNote: 7.1.0
+Encoding: UTF-8
+```
+???
+
+"aut" and "cre" mean author and creator respectively
+
+---
+name: writing-function-file
+
+## How to write documentation
+
+First, take the functions you've written and place them in an R file. Put this R file into a folder called `R`. a**RR**ight?
+
+Then above your function code, write in roxygen comment lines. These are lines starting with `#'`. In these place the documentation of your functions. Write:
+
+  1. The name of your function; 
+  2. A description of what it does; 
+  3. @param values - an explanation of the parameters in your function; 
+  4. @return value - what your function returns. Is it a dataframe, a logical value, a funny picture etc?; and,
+  5. A couple of @example values - showing examples of your function in action
+  
+---
+name:example
+
+## Example 
+
+&lt;img src = "images/07.png"&gt;
+
+`roxygen2` will then take the comment lines, and convert them into `Rd` files. These are your R Documentation files. 
+
+If you want to copy this code, the raw version is on the next slide.
+
+---
+```
+# 3: SQL comparison ----
+#' Return a SQL query within R
+#' 
+#' This returns the results of a SQL query passed to the query parameter. Use 
+#' the returned dataframe to check if the data in the EES import files matches 
+#' the data either from the DWH-LI, or the DEV-SQL database SQL database
+#' 
+#' @param query A string - the SQL query that generated the EIF data
+#' @param dev_sql Logical - sets the function to connect to either the DWH-LI or DEV-SQL SQL server. DWH-LI is the default
+#' @return A dataframe from \code{query}
+#' @example
+#' sql_compare("SELECT TOP 10 [Year],[Age],[Level],[Starts],[Achievements] FROM DWH_MI.SFR.tDM_Apprenticeship_Start_Ach"))
+
+sql_compare &lt;- function(query, dev_sql = FALSE){
+  require(odbc)
+  require(DBI)
+  
+  if(dev_sql == FALSE){
+    conn1 &lt;- dbConnect(odbc(), .connection_string = "driver={SQL Server}; server=DSCI-PRD-DWH-LI")
+  }
+  else{
+    conn1 &lt;- dbConnect(odbc(), .connection_string = "driver={SQL Server}; server=DSCI-PRD-DEV-SQL")
+  }
+  DBI::dbGetQuery(conn1, query)
+}
+```
+
+---
+name: transform
+
+## Conjure `Rd` files
+
+Now that you've written comments with your functions, we now need to conjure up some R documentation files (as if we're visiting the Witches of Crookback Bog). 
+
+How are we going to do that? Oh easy, just type
+
+`roxygen2::roxygenise()` in the R terminal. 
+
+And like magic, documentation files will be generated in a new `man` directory in your project. One file will be created per function in your function R file. 
+
+.footnote[Please tell me someone got that reference]
+
+---
+
+## Comparison
+
+Here's a comparison between your `Rd` file, and what your function documentation looks like when previewed. 
+
+&lt;img src = "images/06.png"&gt;
+
+---
+
+<div id="htmlwidget-6023d44f06fcf01b4085" style="width:504px;height:504px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6023d44f06fcf01b4085">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"Function File\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"0,3!\"] \n  \"2\" [label = \"man Folder\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"0,2!\"] \n  \"3\" [label = \"Documentation in Help\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"0,1!\"] \n  \"1\"->\"2\" \n  \"2\"->\"3\" \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+
+---
+
+```
+|── DESCRIPTION        &lt;- Description of the package you're tricking R with
+|── R
+|   └── functions.R    &lt;- File I wrote my functions in. You can have multiple
+|── man                &lt;- Made when you call roxygen2::roxygenise()
+|   |── function-01.Rd      &lt;- Rd file of first function in functions.R.
+|   |── function-02.Rd      &lt;- And Rd file of second function.
+|   └── function-03.Rd      &lt;- And file of the third.
+```
+
+???
+
+Source of code folder format: https://raw.githubusercontent.com/drivendata/cookiecutter-data-science/master/README.md
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
