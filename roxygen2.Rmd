@@ -145,7 +145,7 @@ name:example
 
 ## Example 
 
-<img src = "images/07.png">
+<img src = "images/07.PNG">
 
 `roxygen2` will then take the comment lines, and convert them into `Rd` files. These are your R Documentation files. 
 
@@ -201,7 +201,7 @@ And like magic, documentation files will be generated in a new `man` directory i
 
 Here's a comparison between your `Rd` file, and what your function documentation looks like when previewed. 
 
-<img src = "images/06.png">
+<img src = "images/06.PNG">
 
 ---
 
