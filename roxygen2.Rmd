@@ -2,7 +2,7 @@
 pagetitle: "Roxygen talk"
 output: 
   xaringan::moon_reader:
-    css: ["default", "styles/custom.css", "styles/custom-fonts.css"]
+    css: ["styles/custom.css", "styles/custom-fonts.css"]
     nature:
       highlightStyle: github 
       highlightLines: true
@@ -25,6 +25,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 ```
 
 ---
+
 # Introduction
 
 I will show you:
@@ -43,33 +44,121 @@ I will show you:
 
 .footnote[[Source](https://roxygen2.r-lib.org/)]
 
+???
+
+Roxygen allows you to easily document your functions. This is a step-up from commenting your code. As with code documentation, function documentation makes it easier to communicate your work to others, and for them to use your code to help them. 
+
+---
+name: what-is-roxygen
+
+# What is Roxygen?
+
+Roxygen, technically called `roxygen2`, is an R package that generates documentation for your functions. 
+
+With a little bit of setting up, I have found it a smashing way to describe the functions I write in my R work. 
+Even though it is focused on analysts who write R packages, it is still a good habit to start writing documentation for your code **now**. 
+
+This talk will show you how. 
+
+---
+name: demo
+
+# A Lovely Example
+
+First, let me give you a lovely example of using `roxygen2`. Recently, I wrote R code to _automatically_ QA the data we - the Further Education unit - import into Explore Education Statistics, the new service to publish DfE statistics. 
+
+With this code, I wrote a couple of functions that perform the QA checks we wanted. But I wanted create documentation for these functions so that other people in my unit (and in the futurue other people in my divison who use this). 
+
+I 
+
+---
+name: set-up
+
+## Set roxygen up in your R project
+
+You know the drill by now...anytime you code in R you should [make a project](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects) to keep your work together. Do that now.  
+
+```
+#install.packages("roxygen2")
+library(roxygen2)
+```
+--
+
+Then write a `DESCRIPTION` file in your project. 
+
+Why?
+
+Because `roxygen2` assumes you're writing an R package. It looks for this `DESCRIPTION` file to find out more info about the R package you're building. 
+
+Now we don't want to write an R package now. But we don't need to tell R that. SO let's trick it...
+
+---
+background-image: url(https://media.giphy.com/media/AZWxR29rtAj4I/giphy.gif)
+background-size: 100%
+
+---
+name: desc
+## Won't get fooled again
+
+So go on ahead, make a `DESCRIPTION` file to trick R into thinking you're writing a package. 
+
+What's that you say...you don't know how to? Well, neither did I when I started using it. I jusy copied someone else's `DESCRIPTION` file. You do the same. Copy my text below and re-write it to whatever you're working on. 
+
+```
+Package: eesQA
+Version: 0.0.1
+Date: 2020-01-30
+Title: Functions to QA Explore Education Statistics data
+Authors@R: person("David", "Data Scientist", role = c("aut", "cre"),
+                     email = "david.sands@education.gov.uk")
+Author: David Sands [aut, cre]
+Maintainer: David Sands <david.sands@education.gov.uk>
+Depends: R (>= 4.0.0), nlme
+Description: QAs the data within the Department of Education's (DfE) Explore Education Statistics (EES) Import Files (EIF). This ensures the data placed on EES is correct and accurate. 
+License: GPL (>= 2)
+URL: https://www.r-project.org
+BugReports: https://eesQA.bugtracker.url
+RoxygenNote: 7.1.0
+Encoding: UTF-8
+```
+.footnote["aut" and "cre" mean author and creator respectively]
+
+---
+name: writing-function-file
+
+## How to write documentation
+
+Write the name of your function. 
+Then briefly say 
+
 ---
 
-# Individual Factors Determining Performance 
-
-```{r indiv-table, echo=FALSE}
-indiv_table <- data.frame(FACTOR = c("Mindset", "Optimal Mindsets", "Effective Coping Strategies", "Goal Setting", "Relaxation and Meditation", "Imagery and Self-Talk"), DETAIL = c("A growth mindset outperforms a fixed mindset. Folks with this mindset focus on learning, their invested effort will lead to success, and they embrace their mistakes.", "Optimal mindset is one in which you achieve FLOW. To increase the likelihood of experiencing this, you motivate yourself to perform well, achieve an optimal physiological arousal level prior to performance, and have a strong focus", "Handle pressure of situation by reinterpreting it. More detail is given later.", "Set SMART goals to guide performance and change behavior if performance is dipping.", "Enhances well-being and handles stress. You can also use this as a coping strategy.", "Pre-imaging situations is conducive to performance in those situations."))
-
-knitr::kable(indiv_table, format = "html")
+```
+|── DESCRIPTION        <- Description of the package you're tricking R with
+|── R
+|   └── functions.R    <- File I wrote my functions in. You can have multiple
+|── man                <- Made when you call `roxygen2::roxygenise()`
+|   |── function-01.Rd      <- Rd file of first function in `functions.R`.
+|   |── function-02.Rd      <- And Rd file of second function.
+|   └── function-03.Rd      <- And file of the third.
 ```
 
+???
+
+Source of code folder format: https://raw.githubusercontent.com/drivendata/cookiecutter-data-science/master/README.md
+
 ---
-name: psy-skills
-class: left, top
 
-# Psychological skills to facilitate performance
+<img src = "images/06.png">
 
-Many of these individual factors are called [Psychological skills](https://www.bodybuilding.com/fun/psychological-skills-training.htm). These are cognitive skills designed to enhance performance outcomes, increase enjoyment, and enhance satisfaction. The main ones to develop are:
+---
 
---
+```{r, echo=FALSE}
+library(DiagrammeR)
+roxy <- create_graph() %>% 
+  add_node(label = "Function File") %>% 
+  add_node(label = "man Folder", from = 1) %>%
+  add_node(label = "Documentation in Help", from = 2)
 
- 1. Goal-setting
- 2. Relaxation and Meditation
- 3. Imagery
- 4. Self-talk
- 5. Pre-performance rituals
-
---
-
-Not too sure how to develop them? Have no fear, I'll show you how in the next few slides...
-
+render_graph(roxy)
+```

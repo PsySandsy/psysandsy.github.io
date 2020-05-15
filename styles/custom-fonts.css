@@ -1,15 +1,8 @@
 
 /* Import from Google Fonts */
 
-@import url('https://fonts.googleapis.com/css?family=Raleway');
-@import url('https://fonts.googleapis.com/css?family=Lekton');
+@import url('https://fonts.googleapis.com/css?family=Nunito+Sans');
 
 /* Sans serif body text */
 
-body { font-family: 'Raleway', serif; }
-
-/* Monospace script */
-
-.remark-code, .remark-inline-code {
-  font-family: 'Lekton', monospace;
-}
+body { font-family: 'Nunito Sans', sans-serif; }
