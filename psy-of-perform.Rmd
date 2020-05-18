@@ -26,7 +26,20 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 ```
 
 ---
-# Introduction
+
+# Contents
+
+* [Introduction](#intro)
+* [Individual Factors](#indiv-fac)
+* [Team Factors](#team-fac)
+* [Factors Limiting Performance](#fac-lim)
+* [Coping](#cope)
+* [Advice on your Mindset](#mindset)
+* [Practical tips to enhance performance](#tips)
+
+---
+name: intro
+# Introduction 
 
 The book [The Psychology of Performance](https://www.routledge.com/The-Psychology-of-Performance-1st-Edition/Cotterill/p/book/9781138219205) by Stewart T Cotterill explores
 
@@ -38,14 +51,14 @@ Chapter 5 - `Factors determinging psychological performance` - details tips and 
 
 --
 
-I was so enthralled by this chapter, I decided to summarise it here. With the factors that determine performance documentated, we can use this knowledge to consistently deliver high performance in present and future environments. To start hitting the mark like Jim Bowen, let's first uncover the factors residing in you - as an individual - which determine performance...
+I was so enthralled by this chapter, I decided to summarise it here. With the factors that determine performance documented, we can use this knowledge to consistently deliver high performance in present and future environments. To start hitting the mark like Jim Bowen, let's first uncover the factors residing in you - as an individual - which determine performance...
 
 ---
+name: indiv-fac
 
 # Individual Factors
-
 ```{r indiv-table, echo=FALSE}
-indiv_table <- data.frame(FACTOR = c("Mindset", "Optimal Mindsets", "Effective Coping Strategies", "Goal Setting", "Relaxation and Meditation", "Imagery and Self-Talk"), DETAIL = c("A growth mindset outperforms a fixed mindset. Folks with this mindset focus on learning, their invested effort will lead to success, and they embrace their mistakes.", "Optimal mindset is one in which you achieve FLOW. To increase the likelihood of experiencing this, you motivate yourself to perform well, achieve an optimal physiological arousal level prior to performance, and have a strong focus", "Handle pressure of situation by reinterpreting it. More detail is given later.", "Set SMART goals to guide performance and change behavior if performance is dipping.", "Enhances well-being and handles stress. You can also use this as a coping strategy.", "Pre-imaging situations is conducive to performance in those situations."))
+indiv_table <- data.frame(FACTOR = c("Mindset", "Optimal Mindset", "Effective Coping Strategies", "Goal Setting", "Relaxation and Meditation", "Imagery/Self-Talk"), DETAIL = c("A growth mindset outperforms a fixed mindset. Folks with this mindset focus on learning, their invested effort will lead to success, and they embrace their mistakes.", "One in which you achieve FLOW. To increase the likelihood of experiencing this, motivate yourself to perform well, achieve an optimal physiological arousal level prior to performance, and have a strong focus", "Handle pressure of situation by reinterpreting it. More detail is given later.", "Set SMART goals to guide performance and change behavior if performance is dipping.", "Enhances well-being and handles stress. You can also use this as a coping strategy.", "Pre-imaging situations is conducive to performance in those situations."))
 
 knitr::kable(indiv_table, format = "html")
 ```
@@ -75,7 +88,7 @@ name: goal
 
 # Goal setting
 
-**Goal-setting:** setting goals has consistently lead to enhanced performance. Influences behaviour and motivation. Should be _SMART_ (specific, measurable, action-related, realistic, timetabled). Most important aspect is evaluation and re-evaluation, allows monitoring and behavioural change (if required).
+**Goal-setting:** setting goals has consistently lead to enhanced performance. Influences behavior and motivation. Should be [_SMART_ (specific, measurable, action-related, realistic, timetabled)](https://www.mindtools.com/pages/article/smart-goals.htm). Most important aspect is evaluation and re-evaluation, allowing monitoring and behavioral change (if required).
 
 --
 
@@ -93,12 +106,12 @@ background-size: cover
 
 We spend a third of a day - every day - sleeping. I.E. **resting**. The importance of rest is hard-coded into our body clock. 
 
-If our bodies need consistent rest, so do we when we're performing. Thankfully, both relexation and meditation provide such rest:
+If our bodies need consistent rest, so do we when we're performing. Thankfully, both relaxation and meditation provide such rest:
 
 --
 
 .pull-left[
-**Relaxation and meditation:** two types, ‘muscle to mind’ (involving breathing exercises and muscular relaxation approach) and ‘mind to muscle’ (meditation and autogenic training). Both aim to decrease oxygen consumption, reduce heart rate & respiration, and provide controlled focus of attention. Can be devloped in meditation groups, or by using meditation apps like [Calm](https://www.calm.com/) or [Headspace](https://www.headspace.com/).
+**Relaxation and meditation:** two types, ‘muscle to mind’ (involving breathing exercises and muscular relaxation approach) and ‘mind to muscle’ (meditation and autogenic training). Both aim to decrease oxygen consumption, reduce heart rate & respiration, and provide controlled focus of attention. Can be developed in meditation groups, or by using meditation apps like [Calm](https://www.calm.com/) or [Headspace](https://www.headspace.com/).
 ]
 
 --
@@ -120,8 +133,9 @@ Self-talk are cognitive techniques that use specific verbal cues to activate app
 --
 
 With individual factors covered, let's turn to factors that determine performance when you work as part of a team...
----
 
+---
+name: team-fac
 # Team Factors Determining Performance
 
 ```{r {r team-table, echo = FALSE}
@@ -131,7 +145,7 @@ knitr::kable(team_table, format = "html")
 ```
 
 ---
-
+name: fac-lim
 # Factors Limiting Performance 
 
 The previous factors may enhance performance, but there's also a few that diminish it. Identify these devils, and eliminate them:
@@ -148,7 +162,7 @@ The previous factors may enhance performance, but there's also a few that dimini
 Given these hazards, let's uncover ways to combat them...
  
 ---
-
+name: cope
 # Coping
 
 Coping relates to handling stress of situation, setbacks, and stress experienced whilst under pressure. 
@@ -188,7 +202,7 @@ name: coping-resources
 
 # Coping resources
 
-Plus, despite which coping stratgy you employ, you can use a lot of resources. 
+Plus, despite which coping strategy you employ, you can use a lot of resources. 
 
 --
 
@@ -214,18 +228,30 @@ At the very least, if you have a problem, voice it to your support network; and 
 
 > The Englishman does not want to be upset, to be reminded that there are personal tragedies all over the place, that he is really not happy in himself.
 
---
+???
 
 Plus, a high carbohydrate breakfast can improve morning performance. If you feel performance is needed before lunch, grab a McMuffan!
+
+---
+name: summary
+
+# Summary
+
+We have looked at multiple dimensions of the psychology of performance:
+
+* [The individual factors that detrmine performance;](#indiv-fac)
+* [The team factors that determine performance;](#team-fac)
+* [The factors that limit performane; and,](#fac-lim)
+* [Coping strategies to handle stressful situations](#cope)
+
+Now that we've explored these, let's finish on two summary slides for ease of reference. 
 
 ---
 name: mindset
 
 # Advice on your mindset
 
-Now that we've explored the factors determining performance, let's finish on two summary slides for ease of reference. 
-
-In the first one here, we talk about the specific mindset you bring to situations. 
+This first summary slide advises on the specific mindset you bring to situations. 
 
 --
 
@@ -248,7 +274,7 @@ In the first one here, we talk about the specific mindset you bring to situation
   5. Psychological skills help performance (goal-setting, imagery, relaxation etc). The more you practice them, the better they become
 
 ---
-
+name: tips
 # Practical tips to enhance performance
 
 Whilst in this second and last one, if you want ten pithy rules to slap on your wall for enhanced performance, *viola*:
