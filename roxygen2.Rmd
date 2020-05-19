@@ -147,7 +147,7 @@ name:example
 
 ## Example 
 
-<img src = "images/07.PNG">
+<img src = "images/06.PNG">
 
 `roxygen2` will then take the comment lines, and convert them into `Rd` files. These are your R Documentation files. 
 
@@ -165,8 +165,8 @@ If you want to copy this code, the raw version is on the next slide.
 #' @param query A string - the SQL query that generated the EIF data
 #' @param dev_sql Logical - sets the function to connect to either the DWH-LI or DEV-SQL SQL server. DWH-LI is the default
 #' @return A dataframe from \code{query}
-#' @example
-#' sql_compare("SELECT TOP 10 [Year],[Age],[Level],[Starts],[Achievements] FROM DWH_MI.SFR.tDM_Apprenticeship_Start_Ach"))
+#' @examples
+#' sql_compare("SELECT TOP 10 [Year],[Age],[Level],[Starts],[Achievements] FROM DWH_MI.SFR.tDM_Apprenticeship_Start_Ach")
 
 sql_compare <- function(query, dev_sql = FALSE){
   require(odbc)
@@ -204,7 +204,7 @@ name: transform-again
 
 Now that you've got some `.Rd` files, let's see what they look like:
 
-<img src = "images/08.PNG">
+<img src = "images/07.PNG">
 
 Nice! We've created a file that can render into R documentation. But _how_ do we do it?
 
@@ -217,7 +217,7 @@ name: final-doc
 
 And after all that, we arrive at beautiful R documentation:
 
-<img src = "images/09.PNG">
+<img src = "images/08.PNG">
 
 With this, you can reduce the overhead on people who use your code.
 
@@ -227,7 +227,7 @@ name: comp
 
 Here's a comparison between your `Rd` file, and what your function documentation looks like when previewed. 
 
-<img src = "images/06.PNG">
+<img src = "images/09.PNG">
 
 ---
 name: diagram

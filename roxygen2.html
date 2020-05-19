@@ -153,7 +153,7 @@ name:example
 
 ## Example 
 
-&lt;img src = "images/07.PNG"&gt;
+&lt;img src = "images/06.PNG"&gt;
 
 `roxygen2` will then take the comment lines, and convert them into `Rd` files. These are your R Documentation files. 
 
@@ -171,8 +171,8 @@ If you want to copy this code, the raw version is on the next slide.
 #' @param query A string - the SQL query that generated the EIF data
 #' @param dev_sql Logical - sets the function to connect to either the DWH-LI or DEV-SQL SQL server. DWH-LI is the default
 #' @return A dataframe from \code{query}
-#' @example
-#' sql_compare("SELECT TOP 10 [Year],[Age],[Level],[Starts],[Achievements] FROM DWH_MI.SFR.tDM_Apprenticeship_Start_Ach"))
+#' @examples
+#' sql_compare("SELECT TOP 10 [Year],[Age],[Level],[Starts],[Achievements] FROM DWH_MI.SFR.tDM_Apprenticeship_Start_Ach")
 
 sql_compare &lt;- function(query, dev_sql = FALSE){
   require(odbc)
@@ -210,7 +210,7 @@ name: transform-again
 
 Now that you've got some `.Rd` files, let's see what they look like:
 
-&lt;img src = "images/08.PNG"&gt;
+&lt;img src = "images/07.PNG"&gt;
 
 Nice! We've created a file that can render into R documentation. But _how_ do we do it?
 
@@ -223,7 +223,7 @@ name: final-doc
 
 And after all that, we arrive at beautiful R documentation:
 
-&lt;img src = "images/09.PNG"&gt;
+&lt;img src = "images/08.PNG"&gt;
 
 With this, you can reduce the overhead on people who use your code.
 
@@ -233,15 +233,15 @@ name: comp
 
 Here's a comparison between your `Rd` file, and what your function documentation looks like when previewed. 
 
-&lt;img src = "images/06.PNG"&gt;
+&lt;img src = "images/09.PNG"&gt;
 
 ---
 name: diagram
 
 ## Flow Diagram
 
-<div id="htmlwidget-f257d9dabdf577d40cf8" style="width:504px;height:504px;" class="DiagrammeR html-widget"></div>
-<script type="application/json" data-for="htmlwidget-f257d9dabdf577d40cf8">{"x":{"diagram":"\n  graph TD\n  A[Function File] --> |roxygen2::roxygenise| B[man Folder]\n  B -->|Preview, or Ctrl + Shift + K| C[Documentation in Help]\n"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-169c08c574a9e550b260" style="width:504px;height:504px;" class="DiagrammeR html-widget"></div>
+<script type="application/json" data-for="htmlwidget-169c08c574a9e550b260">{"x":{"diagram":"\n  graph TD\n  A[Function File] --> |roxygen2::roxygenise| B[man Folder]\n  B -->|Preview, or Ctrl + Shift + K| C[Documentation in Help]\n"},"evals":[],"jsHooks":[]}</script>
 
 ---
 name: folder-structure
