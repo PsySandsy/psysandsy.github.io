@@ -22,7 +22,13 @@ This teaches you how to create a xaringan presentation, and gives examples of it
 
 The presentation [is here](https://psysandsy.github.io/xaringan-teach.html).
 
+## roxygen2 Teach
+
+This teaches you how to use `roxygen2` to write and generate documentation for your R functions. 
+
+The presentation [is here](https://psysandsy.github.io/roxygen2.html).
+
 ### xaringan
 
-Both these presentations were created from the [xaringan package](https://bookdown.org/yihui/rmarkdown/xaringan.html) in R. Once I got used to it, I found it more efficient and effective than either Powerpoint or Keynote. If you learn R, you can also learn xaringan to add data and charts into your presentations easily, as well as let your presentations be version controlled by Git.
+All these presentations were created from the [xaringan package](https://bookdown.org/yihui/rmarkdown/xaringan.html) in R. Once I got used to it, I found it more efficient and effective than either Powerpoint or Keynote. If you learn R, you can also learn xaringan to add data and charts into your presentations easily, as well as let your presentations be version controlled by Git.
 
