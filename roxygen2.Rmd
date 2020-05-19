@@ -25,24 +25,24 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 ```
 
 ---
-
+name: intro
 # Introduction
+
+> The premise of roxygen2 is simple: describe your functions in comments next to their definitions and roxygen2 will process your source code and comments to automatically generate documentation files for your functions.*
+
+.footnote[.red[*] [Source](https://roxygen2.r-lib.org/)]
+
+--
 
 I will show you:
 
-  * Set up Roxygen in your R Projects
+  * [How to set up Roxygen in your R Projects](#set-up); 
 
 --
-  * Write documentation for your functions
+  * [Write documentation for your functions](#writing-function-file); and, 
 
 --
-  * Generate Rd files to share the documentation you wrote
-
---
-
-> The premise of roxygen2 is simple: describe your functions in comments next to their definitions and roxygen2 will process your source code and comments to automatically generate documentation files for your functions.
-
-.footnote[[Source](https://roxygen2.r-lib.org/)]
+  * [Generate Rd files to share the documentation you wrote](#transform)
 
 ???
 
@@ -56,6 +56,7 @@ name: what-is-roxygen
 Roxygen, technically called `roxygen2`, is an R package that generates documentation for your functions. 
 
 With a little bit of setting up, I have found it a smashing way to describe the functions I write in my R work. 
+
 Even though it is focused on analysts who write R packages, it is still a good habit to start writing documentation for your code **now**. 
 
 This talk will show you how. 
@@ -65,9 +66,9 @@ name: demo
 
 # A Lovely Example
 
-First, let me give you a lovely example of using `roxygen2`. Recently, I wrote R code to _automatically_ QA the data we - the Further Education unit - import into Explore Education Statistics, the new service to publish DfE statistics. 
+First, let me give you a lovely example of using `roxygen2`. Recently, I wrote R code to _automatically_ QA the data we - the Further Education unit - import into [Explore Education Statistics](https://www.gov.uk/guidance/explore-education-statistics), the new service to publish DfE statistics. 
 
-With this code, I wrote a couple of functions that perform the QA checks we wanted. But I wanted create documentation for these functions so that other people in my unit (and in the futurue other people in my divison who use this). 
+With this code, I wrote a couple of functions that perform the QA checks we wanted. But I wanted to create documentation for these functions so that other people in my unit (and in the futurue other people in my divison) could use them easily. 
 
 I decided to give Roxygen a go, and was very happy with how it went. Come with me and I'll show you how I got it working...
 
@@ -93,6 +94,7 @@ Because `roxygen2` assumes you're writing an R package. It looks for this `DESCR
 Now we don't want to write an R package now. But we don't need to tell R that. Let's trick it...
 
 ---
+name: lol
 background-image: url(https://media.giphy.com/media/AZWxR29rtAj4I/giphy.gif)
 background-size: 100%
 
@@ -185,7 +187,7 @@ name: transform
 
 ## Conjure `Rd` files
 
-Now that you've written comments with your functions, we now need to conjure up some R documentation files (as if we're visiting the Witches of Crookback Bog). 
+Now that you've written comments with your functions, we now need to conjure up some R documentation files (as if we're visiting the Witches of Crookback Bog)*. 
 
 How are we going to do that? Oh easy, just type
 
@@ -193,10 +195,34 @@ How are we going to do that? Oh easy, just type
 
 And like magic, documentation files will be generated in a new `man` directory in your project. One file will be created per function in your function R file. 
 
-.footnote[Please tell me someone got that reference]
+.footnote[.red[*] Please tell me someone got that reference]
 
 ---
+name: transform-again
 
+## View your documentation file
+
+Now that you've got some `.Rd` files, let's see what they look like:
+
+<img src = "images/08.PNG">
+
+Nice! We've created a file that can render into R documentation. But _how_ do we do it?
+
+Easy, click on the `Preview` button in the file, or type `Ctrl + Shift + K`. 
+
+---
+name: final-doc
+
+## Final output
+
+And after all that, we arrive at beautiful R documentation:
+
+<img src = "images/09.PNG">
+
+With this, you can reduce the overhead on people who use your code.
+
+---
+name: comp
 ## Comparison
 
 Here's a comparison between your `Rd` file, and what your function documentation looks like when previewed. 
@@ -204,27 +230,30 @@ Here's a comparison between your `Rd` file, and what your function documentation
 <img src = "images/06.PNG">
 
 ---
+name: diagram
 
-```{r, echo=FALSE}
-library(DiagrammeR)
-roxy <- create_graph() %>% 
-  add_node(label = "Function File") %>% 
-  add_node(label = "man Folder", from = 1) %>%
-  add_node(label = "Documentation in Help", from = 2)
+## Flow Diagram
 
-render_graph(roxy, layout = "tree")
+```{r, echo=F}
+DiagrammeR::mermaid("
+  graph TD
+  A[Function File] --> |roxygen2::roxygenise| B[man Folder]
+  B -->|Preview, or Ctrl + Shift + K| C[Documentation in Help]
+")
 ```
 
 ---
+name: folder-structure
 
+# Folder Structure
 ```
-|── DESCRIPTION        <- Description of the package you're tricking R with
-|── R
-|   └── functions.R    <- File I wrote my functions in. You can have multiple
-|── man                <- Made when you call roxygen2::roxygenise()
-|   |── function-01.Rd      <- Rd file of first function in functions.R.
-|   |── function-02.Rd      <- And Rd file of second function.
-|   └── function-03.Rd      <- And file of the third.
+├── DESCRIPTION        <- Description of the package you're tricking R with
+├── R
+│   └── functions.R    <- File I wrote my functions in. You can have multiple
+├── man                <- Made when you call roxygen2::roxygenise()
+│   ├── function-01.Rd      <- Rd file of first function in functions.R.
+│   ├── function-02.Rd      <- And Rd file of second function.
+│   └── function-03.Rd      <- And file of the third.
 ```
 
 ???
