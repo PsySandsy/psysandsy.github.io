@@ -47,7 +47,7 @@ The book [The Psychology of Performance](https://www.routledge.com/The-Psycholog
 
 --
 
-Chapter 5 - `Factors determinging psychological performance` - details tips and techniques identified via psychological research that leads to enhanced performance. But also uncovers factors that diminish performance.
+Chapter 5 - `Factors determining psychological performance` - details tips and techniques identified via psychological research that leads to enhanced performance. But also uncovers factors that diminish performance. 
 
 --
 
@@ -239,9 +239,9 @@ name: summary
 
 We have looked at multiple dimensions of the psychology of performance:
 
-* [The individual factors that detrmine performance;](#indiv-fac)
+* [The individual factors that determine performance;](#indiv-fac)
 * [The team factors that determine performance;](#team-fac)
-* [The factors that limit performane; and,](#fac-lim)
+* [The factors that limit performance; and,](#fac-lim)
 * [Coping strategies to handle stressful situations](#cope)
 
 Now that we've explored these, let's finish on two summary slides for ease of reference. 
