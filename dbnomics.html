@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>A Tonic to your Data Ingestion: A Sip of DBnomics</title>
+    <meta charset="utf-8" />
+    <script src="dbnomics_files/header-attrs/header-attrs.js"></script>
+    <script src="dbnomics_files/htmlwidgets/htmlwidgets.js"></script>
+    <link href="dbnomics_files/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
+    <script src="dbnomics_files/datatables-binding/datatables.js"></script>
+    <script src="dbnomics_files/jquery/jquery-3.6.0.min.js"></script>
+    <link href="dbnomics_files/dt-core/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="dbnomics_files/dt-core/css/jquery.dataTables.extra.css" rel="stylesheet" />
+    <script src="dbnomics_files/dt-core/js/jquery.dataTables.min.js"></script>
+    <link href="dbnomics_files/crosstalk/css/crosstalk.min.css" rel="stylesheet" />
+    <script src="dbnomics_files/crosstalk/js/crosstalk.min.js"></script>
+    <link rel="stylesheet" href="styles/custom.css" type="text/css" />
+    <link rel="stylesheet" href="styles/custom-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+class: center, middle, inverse
+
+# DBnomics
+
+### How to explore and download open-source data from DBnomics using R, Python, and Excel (if things are that desperate)
+
+By David Sands
+
+2022-09-28
+
+
+
+---
+name: intr
+# Introduction
+
+[What's DBnomics?](#what-is)
+
+[How do you access it with R?](#r-code-1)
+
+[How do you access it with Python?](#python-code-1)
+
+[*Sigh* How do you access it with Excel?](#excel-01)
+
+---
+name: what-is
+
+## What is DBnomics?
+
+`An online collection of open source economic databases`
+
+&lt;iframe src="https://db.nomics.world/" width="100%" height="400px" data-external="1"&gt;&lt;/iframe&gt;
+
+---
+name: org
+
+## Organisation
+
+Data on DBnomics is grouped into three levels:
+
+1. Provider - the name of the organisation that provides the data. E.g. OECD, World Bank, ILO;
+2. Dataset - grouped indicators or measures published by the provider. This could also be a single indicator or measure E.g. from World Bank `Doing Business`, `Enterprise Surveys`. Whereas the ILO has `Child population by sex, age and rural / urban areas (thousands)` and `Child population by sex and age (thousands)`
+3. Series - either a single indicator/measure from grouped ones, or a component of a single indicator. E.g. `ENF.CONT.COEN.ATDR-AE` or `ENF.CONT.COEN.ATDR-AF` from the Worl Bank's Doing Business dataset, and `AFG.BB_6361.AGE_CLDVERSION_Y12-14.GEO_COV_NAT.SEX_F.A`, or `AFG.BB_6361.AGE_CLDVERSION_Y12-14.GEO_COV_NAT.SEX_M.A` for the ILO's Child population dataset.
+
+---
+name: ways
+
+The three major ways to explore and download data from DBnomics are:
+
+1. [The R package `rdbnomics`](https://git.nomics.world/dbnomics/rdbnomics) 
+2. [The Python package `dbnomics`](https://git.nomics.world/dbnomics/dbnomics-python-client)
+3. Manually selecting Series to download from the website
+
+---
+name: r-code-1
+
+### List of Providers
+
+
+```r
+library(rdbnomics) # Function to download data from DBnomics
+library(tidyverse)
+
+# Returning the first six providers from DBnomics
+provs &lt;- rdb_providers() # Function to 
+prov_table &lt;- provs %&gt;% select(code, name)
+knitr::kable(head(prov_table), format = "html")
+```
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; code &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; name &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; ACOSS &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Agence centrale des organismes de sécurité sociale &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; AFDB &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; African Development Group &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; AIH &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Africa Information Highway &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; AMECO &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Annual macro-economic database of the European Commission's Directorate General for Economic and Financial Affairs &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; AQICN &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; The World Air Quality Index Project &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Apple &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Apple &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+name: r-code-2
+
+### OECD Datasets
+
+Which datasets does the OECD have?
+
+
+```r
+prov_code = "OECD" # Organisation for Economic Co-operation and Development
+
+knitr::kable(tail(rdb_datasets(provider_code = prov_code, simplify = TRUE), format = "html"))
+```
+
+
+
+|code          |name                                        |
+|:-------------|:-------------------------------------------|
+|MIG           |International Migration Database            |
+|QNA           |Quarterly National Accounts                 |
+|REGION_ECONOM |NA                                          |
+|SNA_TABLE8A   |8A. Capital formation by activity ISIC rev4 |
+|SOCR          |SOCR - Detailed data                        |
+|STANI4_2016   |STAN Industrial Analysis 2016 ed.           |
+
+
+---
+name: r-code-3
+
+
+```r
+data_code &lt;- "MIG" # International Migration Database
+
+mig_dataset_dimensions &lt;- rdb_dimensions(
+  prov_code,
+  data_code,
+  simplify = T # Change to the default FALSE when returning multiple datasets
+)
+
+names(mig_dataset_dimensions) # What dimensions does the MIG Dataset have?
+```
+
+```
+## [1] "CO2" "COU" "GEN" "VAR"
+```
+
+```r
+head(mig_dataset_dimensions$CO2) # Country of Birth levels
+```
+
+```
+##    CO2 Country of birth/nationality
+## 1: ABW                        Aruba
+## 2: AFG                  Afghanistan
+## 3: AGO                       Angola
+## 4: AIA                     Anguilla
+## 5: ALB                      Albania
+## 6: AND                      Andorra
+```
+
+Oh, what's that *International Migration Database?* Let's have a closer look...
+
+---
+name: r-code-4
+
+
+```r
+head(mig_dataset_dimensions$COU) # Destination country levels
+```
+
+```
+##    COU     Country
+## 1: AUS   Australia
+## 2: AUT     Austria
+## 3: BEL     Belgium
+## 4: CAN      Canada
+## 5: CHE Switzerland
+## 6: CHL       Chile
+```
+
+```r
+head(mig_dataset_dimensions$GEN) # Gender levels
+```
+
+```
+##        GEN         Gender
+## 1: PCT_WMN Share of women
+## 2:     TOT          Total
+## 3:     WMN          Women
+```
+
+```r
+head(mig_dataset_dimensions$VAR) # List of variables
+```
+
+```
+##    VAR                                                    Variable
+## 1: B11                Inflows of foreign population by nationality
+## 2: B12               Outflows of foreign population by nationality
+## 3: B13                    Inflows of asylum seekers by nationality
+## 4: B14        Stock of foreign-born population by country of birth
+## 5: B15                  Stock of foreign population by nationality
+## 6: B16 Acquisition of nationality by country of former nationality
+```
+
+---
+name: r-code-5
+
+### List of series codes from the MIG data
+
+These series codes show cases where the *Country of Birth* is the UK and the Variable is *Inflows of foreign workers by nationality*
+
+
+```r
+mig_data &lt;- rdb_series(
+  prov_code,
+  data_code,
+  dimensions = list(CO2 = "GBR", # Country of Birth - United Kingdom
+                    VAR = "B21"), # Inflows of foreign workers by nationality
+  simplify = T
+)
+head(mig_data) 
+```
+
+```
+##        series_code
+## 1: GBR.B21.TOT.AUS
+## 2: GBR.B21.TOT.CAN
+## 3: GBR.B21.TOT.CHE
+## 4: GBR.B21.TOT.CHL
+## 5: GBR.B21.TOT.DEU
+## 6: GBR.B21.TOT.DNK
+##                                                                         series_name
+## 1:   United Kingdom – Inflows of foreign workers by nationality – Total – Australia
+## 2:      United Kingdom – Inflows of foreign workers by nationality – Total – Canada
+## 3: United Kingdom – Inflows of foreign workers by nationality – Total – Switzerland
+## 4:       United Kingdom – Inflows of foreign workers by nationality – Total – Chile
+## 5:     United Kingdom – Inflows of foreign workers by nationality – Total – Germany
+## 6:     United Kingdom – Inflows of foreign workers by nationality – Total – Denmark
+```
+
+---
+name: r-code-6
+
+## How to return a specific series
+
+
+```r
+uk_workers_to_portugal &lt;- rdb(
+  prov_code,
+  data_code,
+  dimensions = list(CO2 = "GBR",
+                    COU = "PRT", # Destination Country: Portugal
+                    VAR = "B21")
+)
+```
+
+---
+name: r-code-7
+
+
+```r
+glimpse(uk_workers_to_portugal)
+```
+
+```
+## Rows: 12
+## Columns: 19
+## $ `@frequency`                   &lt;chr&gt; "annual", "annual", "annual", "annual",…
+## $ CO2                            &lt;chr&gt; "GBR", "GBR", "GBR", "GBR", "GBR", "GBR…
+## $ COU                            &lt;chr&gt; "PRT", "PRT", "PRT", "PRT", "PRT", "PRT…
+## $ Country                        &lt;chr&gt; "Portugal", "Portugal", "Portugal", "Po…
+## $ `Country of birth/nationality` &lt;chr&gt; "United Kingdom", "United Kingdom", "Un…
+## $ dataset_code                   &lt;chr&gt; "MIG", "MIG", "MIG", "MIG", "MIG", "MIG…
+## $ dataset_name                   &lt;chr&gt; "International Migration Database", "In…
+## $ GEN                            &lt;chr&gt; "TOT", "TOT", "TOT", "TOT", "TOT", "TOT…
+## $ Gender                         &lt;chr&gt; "Total", "Total", "Total", "Total", "To…
+## $ indexed_at                     &lt;dttm&gt; 2022-06-30 00:43:29, 2022-06-30 00:43:…
+## $ original_period                &lt;chr&gt; "1995", "1996", "1997", "1998", "1999",…
+## $ original_value                 &lt;chr&gt; "304", "199", "140", "256", "314", "280…
+## $ period                         &lt;date&gt; 1995-01-01, 1996-01-01, 1997-01-01, 19…
+## $ provider_code                  &lt;chr&gt; "OECD", "OECD", "OECD", "OECD", "OECD",…
+## $ series_code                    &lt;chr&gt; "GBR.B21.TOT.PRT", "GBR.B21.TOT.PRT", "…
+## $ series_name                    &lt;chr&gt; "United Kingdom – Inflows of foreign wo…
+## $ value                          &lt;dbl&gt; 304, 199, 140, 256, 314, 280, 286, 303,…
+## $ VAR                            &lt;chr&gt; "B21", "B21", "B21", "B21", "B21", "B21…
+## $ Variable                       &lt;chr&gt; "Inflows of foreign workers by national…
+```
+
+---
+name: r-code-8
+
+<div id="htmlwidget-a541918da3072d673fd5" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a541918da3072d673fd5">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12"],["1995","1996","1997","1998","1999","2000","2001","2002","2003","2004","2005","2006"],["304","199","140","256","314","280","286","303","252","299","227","167"],["United Kingdom – Inflows of foreign workers by nationality – Total – Portugal","United Kingdom – Inflows of foreign workers by nationality – Total – Portugal","United Kingdom – Inflows of foreign workers by nationality – Total – Portugal","United Kingdom – Inflows of foreign workers by nationality – Total – Portugal","United Kingdom – Inflows of foreign workers by nationality – Total – Portugal","United Kingdom – Inflows of foreign workers by nationality – Total – Portugal","United Kingdom – Inflows of foreign workers by nationality – Total – Portugal","United Kingdom – Inflows of foreign workers by nationality – Total – Portugal","United Kingdom – Inflows of foreign workers by nationality – Total – Portugal","United Kingdom – Inflows of foreign workers by nationality – Total – Portugal","United Kingdom – Inflows of foreign workers by nationality – Total – Portugal","United Kingdom – Inflows of foreign workers by nationality – Total – Portugal"],["GBR.B21.TOT.PRT","GBR.B21.TOT.PRT","GBR.B21.TOT.PRT","GBR.B21.TOT.PRT","GBR.B21.TOT.PRT","GBR.B21.TOT.PRT","GBR.B21.TOT.PRT","GBR.B21.TOT.PRT","GBR.B21.TOT.PRT","GBR.B21.TOT.PRT","GBR.B21.TOT.PRT","GBR.B21.TOT.PRT"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>original_period<\/th>\n      <th>original_value<\/th>\n      <th>series_name<\/th>\n      <th>series_code<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":4,"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[4,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+
+---
+name: r-code-9
+
+## How to return series via API call
+
+```r
+api_example &lt;- rdb(
+  api_link &lt;- "https://api.db.nomics.world/v22/series/OECD/MIG?dimensions=%7B%22CO2%22%3A%5B%22GBR%22%5D%2C%22VAR%22%3A%5B%22B21%22%5D%2C%22COU%22%3A%5B%22PRT%22%5D%7D&amp;observations=1"
+)
+```
+
+---
+name: r-code-10
+
+```r
+glimpse(api_example)
+```
+
+```
+## Rows: 12
+## Columns: 19
+## $ `@frequency`                   &lt;chr&gt; "annual", "annual", "annual", "annual",…
+## $ CO2                            &lt;chr&gt; "GBR", "GBR", "GBR", "GBR", "GBR", "GBR…
+## $ COU                            &lt;chr&gt; "PRT", "PRT", "PRT", "PRT", "PRT", "PRT…
+## $ Country                        &lt;chr&gt; "Portugal", "Portugal", "Portugal", "Po…
+## $ `Country of birth/nationality` &lt;chr&gt; "United Kingdom", "United Kingdom", "Un…
+## $ dataset_code                   &lt;chr&gt; "MIG", "MIG", "MIG", "MIG", "MIG", "MIG…
+## $ dataset_name                   &lt;chr&gt; "International Migration Database", "In…
+## $ GEN                            &lt;chr&gt; "TOT", "TOT", "TOT", "TOT", "TOT", "TOT…
+## $ Gender                         &lt;chr&gt; "Total", "Total", "Total", "Total", "To…
+## $ indexed_at                     &lt;dttm&gt; 2022-06-30 00:43:29, 2022-06-30 00:43:…
+## $ original_period                &lt;chr&gt; "1995", "1996", "1997", "1998", "1999",…
+## $ original_value                 &lt;chr&gt; "304", "199", "140", "256", "314", "280…
+## $ period                         &lt;date&gt; 1995-01-01, 1996-01-01, 1997-01-01, 19…
+## $ provider_code                  &lt;chr&gt; "OECD", "OECD", "OECD", "OECD", "OECD",…
+## $ series_code                    &lt;chr&gt; "GBR.B21.TOT.PRT", "GBR.B21.TOT.PRT", "…
+## $ series_name                    &lt;chr&gt; "United Kingdom – Inflows of foreign wo…
+## $ value                          &lt;dbl&gt; 304, 199, 140, 256, 314, 280, 286, 303,…
+## $ VAR                            &lt;chr&gt; "B21", "B21", "B21", "B21", "B21", "B21…
+## $ Variable                       &lt;chr&gt; "Inflows of foreign workers by national…
+```
+
+---
+name: r-code-11
+
+### Example of looping through a list of World Bank series
+
+
+```r
+wb_country_codes &lt;- c("DZA", "TUN", "MAR") # ISO2 Codes for Algeria, Tunisia, and Morocco
+
+wb_indicator_codes &lt;- c("SI.POV.DDAY", "NY.GDP.PCAP.KD.ZG", "NE.IMP.GNFS.KD",
+              "NE.EXP.GNFS.KD","HD.HCI.OVRL","SH.DYN.MORT","SP.ADO.TFRT",
+              "SP.POP.DPND.YG","EG.ELC.ACCS.ZS","EG.FEC.RNEW.ZS"
+)
+
+
+# Loop through Africa WB indicator codes and download them off of DBNomics
+world_bank_data &lt;- tibble()
+for (i in 1:length(wb_indicator_codes)){
+  data_i &lt;- rdb("WB", "WDI", 
+                dimensions = list(country = c(wb_country_codes),
+                                  indicator = wb_indicator_codes[i]))
+  world_bank_data &lt;- rbind(world_bank_data, data_i)  
+}
+```
+
+
+---
+name: python-code-1
+
+## Explore DBnomics with Python
+
+
+```python
+import requests
+import pandas as pd
+import dbnomics as db
+```
+
+
+
+```python
+prov_code = "OECD"
+data_code = "MIG"
+
+# Return list of providers using a GET request
+dbnomics_providers = pd.read_json(requests.get("https://api.db.nomics.world/v22/providers?limit=100&amp;offset=0").content.decode("UTF-8")).providers.docs
+
+# Return list of OECD datasets using a GET request
+oecd_dataset = pd.read_json(requests.get("https://api.db.nomics.world/v22/datasets/" + prov_code + "?limit=50&amp;offset=0").content.decode("UTF-8")).datasets.docs
+
+# Return dimensions of MIG dataset
+mig_dataset_dimensions &lt;- rdb_dimensions(
+  prov_code,
+  data_code,
+  simplify = T # Change to the default FALSE when returning multiple datasets
+)
+```
+
+---
+name: python-code-2
+
+## Return data with Python
+
+
+```python
+series_info_and_data = db.fetch_series_page("https://api.db.nomics.world/v22/series/OECD/MIG?dimensions=%7B%22CO2%22%3A%5B%22GBR%22%5D%2C%22VAR%22%3A%5B%22B21%22%5D%7D&amp;observations=1", 1)
+# JSON data showing both the metadata and values of one or more series from an API call
+
+uk_workers_to_portugal = db.fetch_series(
+    provider_code=prov_code,
+    dataset_code=data_code,
+    dimensions = 
+    {"CO2": ["GBR"],
+    "COU": ["PRT"],
+    "VAR": ["B21"]
+    }
+)
+
+api_example = db.fetch_series_by_api_link(
+  api_link = "https://api.db.nomics.world/v22/series/OECD/MIG?dimensions=%7B%22CO2%22%3A%5B%22GBR%22%5D%2C%22VAR%22%3A%5B%22B21%22%5D%2C%22COU%22%3A%5B%22PRT%22%5D%7D&amp;observations=1"
+)
+
+series_code_example = fetch_series('OECD/MIG/GBR.B21.TOT.PRT')
+```
+
+
+---
+name: excel-01
+
+## Download data using Excel
+
+&lt;img src = "images/10_dbnomics.PNG" alt="Download button from a Series page" height="150" width="550"&gt;
+
+&lt;iframe src="https://db.nomics.world/OECD/MIG?dimensions=%7B%22VAR%22%3A%5B%22B21%22%5D%2C%22CO2%22%3A%5B%22GBR%22%5D%7D" width="100%" height="400px" data-external="1"&gt;&lt;/iframe&gt;
+
+---
+name: excel-02
+
+## Download the CSV link in R or Python
+
+#### R CSV Link
+
+
+```r
+csv_download_r &lt;- read_csv("https://api.db.nomics.world/v22/series/OECD/MIG.csv?limit=1000&amp;q=&amp;dimensions=%7B%22VAR%22%3A%5B%22B21%22%5D%2C%22CO2%22%3A%5B%22GBR%22%5D%7D")
+```
+
+#### Python CSV Link
+
+
+```python
+csv_download_python = pd.read_csv("https://api.db.nomics.world/v22/series/OECD/MIG.csv?limit=1000&amp;q=&amp;dimensions=%7B%22VAR%22%3A%5B%22B21%22%5D%2C%22CO2%22%3A%5B%22GBR%22%5D%7D)
+```
+
+---
+name: pic-1
+
+## Other ways to explore data on the DBnomics website
+
+### Table View
+
+&lt;img src = "images/11_dbnomics.PNG" alt="Table View of Series page" height = "350" width="500"&gt;
+
+---
+name: pic-2
+
+### Chart View
+
+&lt;img src = "images/12_dbnomics.PNG" alt="Chart View of Series page" height = "500"&gt;
+
+---
+name: when-to
+
+# When to use DBnomics?
+
+When you are asked for some external data - especially if it's economic one - quickly check the website to see if its there.
+
+
+
+Some high-profile providers are the World Bank, ILO, OECD, and WHO.
+
+
+
+
+Other country-specific providers are the Banque De France, Bank of England, and Statistics Poland
+
+
+
+While more idiosyncratic providers are the The World Air Quality Index Project, Citymapper, and Freedom House
+
+---
+name: benefits
+
+## What are the benefits of using DBnomics?
+
+* Standardised data collection
+* Reams of information already organised
+* Easily incorporate data into your code and data pipelines
+
+---
+name: link
+
+## Links
+
+1. [Homepage](https://db.nomics.world/)
+2. [API](https://api.db.nomics.world/v22/apidocs)
+3. [Documentation](https://db.nomics.world/docs/)
+4. [R Package](https://git.nomics.world/dbnomics/rdbnomics)
+5. [R Package Tutorial](https://cran.r-project.org/web/packages/rdbnomics/vignettes/rdbnomics.html)
+6. [Python Package](https://git.nomics.world/dbnomics/dbnomics-python-client)
+7. [Source code of this Presentation](https://psysandsy.github.io/)
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
